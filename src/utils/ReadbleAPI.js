@@ -17,3 +17,30 @@ export const getCategories = () =>
   })
   .then(res => res.json())
   .then(data => console.log(data))
+
+  export function fetchPosts(url) {
+    return (dispatch) => {
+      // Dispatch the loading action (true)
+      dispatch(postsIsLoading(true))
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw Error (response.statusText)
+          }
+
+          // Since an error occurred, dispatch the loading action (false)
+          dispatch(postsIsLoading(false))
+
+          return response
+        })
+        // If all goes well parse the response into a JSON format
+        .then((response) => response.json())
+        // Dispatch the the fetch success action
+        .then((posts) => dispatch(postsFetchSuccess(posts)))
+        .catch((error) => {
+          // If something goes wrong dispatch the error action
+          dispatch(postsHasError(true))
+          console.log("Something went wrong..", error)
+        })
+    }
+  }
