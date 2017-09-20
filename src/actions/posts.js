@@ -57,7 +57,6 @@ export function fetchPosts() {
         if (!response.ok) {
           throw Error (response.statusText)
         }
-
         // Since an error occurred, dispatch the loading action (false)
         dispatch(postsIsLoading(false))
 
