@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { fetchPosts } from './actions/posts'
 import { connect } from 'react-redux'
+import Header from './components/Header'
+import Sidebar from './components/Sidebar'
+import Main from './components/Main'
+
 import './App.css';
 
 class App extends Component {
@@ -23,23 +27,11 @@ class App extends Component {
 
     return (
       <div className="app">
-        <header className="app-header">
-          <h1>My Reads App</h1>
-        </header>
 
-        <div className="content">
-          <h2>Posts Collection</h2>
-          <p>{console.log(this.props.posts)}</p>
-          <ul className="posts-list">
-            {this.props.posts.map((post) => {
-              return (
-                <li key={post.id}>
-                  <a href="">{post.title}</a>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+        <Header/>
+        <Sidebar posts={this.props.posts}/>
+        <Main posts={this.props.posts}/>
+
       </div>
 
     );
