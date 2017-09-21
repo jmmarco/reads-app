@@ -4,12 +4,18 @@ class Post extends Component {
 
   render() {
     const { post } = this.props
+
     console.log("Post is: ", post)
     if (post !== undefined) {
+
       return (
-        <div>
+        <div className="post-body">
           <h2>{post.title}</h2>
+          <h3>Posted in category: {post.category}</h3>
           <p>{post.body}</p>
+          <hr/>
+          <p>Written by: <a href="">{post.author}</a> on: {new Date(post.timestamp).toLocaleString()}</p>
+
         </div>
       )
     }
