@@ -7,7 +7,7 @@ class Header extends Component {
 
     return (
       <header className="app-header">
-        <h1><Link exact to={`/`}>My Reads App</Link></h1>
+        <h1><Link to={`/`}>My Reads App</Link></h1>
       </header>
     )
 
