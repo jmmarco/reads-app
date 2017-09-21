@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import Main from './components/Main'
+import * as ReadbleAPI from './utils/ReadbleAPI'
 
 import './App.css';
 
@@ -11,7 +12,6 @@ class App extends Component {
 
   componentDidMount() {
     console.log("fired")
-
     this.props.fetchPosts()
   }
 

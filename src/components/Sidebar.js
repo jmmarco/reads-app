@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Route } from 'react-router-dom'
-import Post from './Post'
+import { Link } from 'react-router-dom'
 
 class Sidebar extends Component {
   render() {
@@ -13,7 +12,6 @@ class Sidebar extends Component {
               <li key={post.id}>
 
                 <Link to={`/posts/${post.id}`}>{post.title}</Link>
-                {/* <Route component={Post} post={post}/> */}
 
               </li>
             )

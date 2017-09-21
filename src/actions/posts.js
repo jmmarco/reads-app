@@ -1,4 +1,3 @@
-
 export function postsHasError(bool) {
   return {
     type: 'POSTS_HAS_ERROR',
