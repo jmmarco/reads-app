@@ -28,7 +28,7 @@ body, html {
   letter-spacing: 1.8px;
 }
 
-.posts-list {
+.list {
   list-style: none;
   padding-left: 0;
 }
@@ -42,10 +42,23 @@ body, html {
 
 .sidebar {
   display: inline-block;
-  padding-left: 15px;
+  padding: 15px;
   background: #eee;
   border: 2px solid #eee;
   width: 33vw;
   height: 100vh;
   overflow: auto;
+}
+
+button {
+  border: 0;
+  margin: 5px;
+  text-transform: uppercase;
+  background: deepskyblue;
+  font-weight: 700;
+  padding: 20px 40px;
+}
+
+button:active {
+  background: lightskyblue;
 }
