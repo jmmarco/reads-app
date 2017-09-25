@@ -50,6 +50,11 @@ body, html {
   overflow: auto;
 }
 
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
 button {
   border: 0;
   margin: 5px;
@@ -57,6 +62,8 @@ button {
   background: deepskyblue;
   font-weight: 700;
   padding: 20px 40px;
+  border-radius: 5px;
+  font-size: 1.6em;
 }
 
 button:active {
