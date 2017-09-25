@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { fetchPosts } from './actions/posts'
+import { fetchCategories } from './actions/categories'
 import { connect } from 'react-redux'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import Main from './components/Main'
-import * as ReadbleAPI from './utils/ReadbleAPI'
 
 import './App.css';
 
@@ -13,6 +13,7 @@ class App extends Component {
   componentDidMount() {
     console.log("fired")
     this.props.fetchPosts()
+    this.props.fetchCategories()
   }
 
 
@@ -29,8 +30,8 @@ class App extends Component {
       <div className="app">
 
         <Header/>
-        <Sidebar posts={this.props.posts}/>
-        <Main posts={this.props.posts}/>
+        <Sidebar posts={this.props.posts} categories={this.props.categories}/>
+        <Main posts={this.props.posts} categories={this.props.categories}/>
 
       </div>
 
@@ -44,13 +45,16 @@ const mapStateToProps = (state) => {
   return {
     posts: state.posts,
     hasError: state.postsHasError,
-    isLoading: state.postsIsLoading
+    isLoading: state.postsIsLoading,
+    categories: state.categories,
+
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPosts: (url) => dispatch(fetchPosts(url))
+    fetchPosts: (url) => dispatch(fetchPosts(url)),
+    fetchCategories: (url) => dispatch(fetchCategories(url))
   }
 }
 

@@ -62,7 +62,11 @@ export function fetchPosts() {
         return response
       })
       // If all goes well parse the response into a JSON format
-      .then((response) => response.json())
+      .then((response) => {
+        let json = response.json()
+        // console.log("JSON looks like this: ", json)
+        return json
+      })
       // Dispatch the the fetch success action
       .then((posts) => dispatch(postsFetchSuccess(posts)))
       .catch((error) => {

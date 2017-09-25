@@ -5,7 +5,10 @@ class Home extends Component {
     return (
       <div>
         <h2>Welcome</h2>
-        <p>To get started click on any of the posts on the left sidebar..</p>
+        <p>
+          To get started choose from any of the posts or
+          categories on the left sidebar..
+        </p>
       </div>
     )
   }
