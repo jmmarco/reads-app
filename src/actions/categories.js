@@ -1,4 +1,4 @@
-// import * as ReadbleAPI from '../utils/ReadbleAPI'
+import { api, headers } from '../utils/ReadbleAPI'
 
 export function categoriesHasError(bool) {
   return {
@@ -30,23 +30,6 @@ export function errorAfterFiveSeconds() {
     }, 5000)
   }
 }
-
-
-
-//  I hate that i'm repeating this code again...
-const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5001'
-
-// Generate a unique token for storing the categories data on the backend server
-let token = localStorage.token
-
-if (!token)
-  token = localStorage.token = Math.random().toString(36).substr(-8)
-
-const headers = {
-  'Accept': 'application/json',
-  'Authorization': token
-}
-
 
 export function fetchCategories() {
   return (dispatch) => {

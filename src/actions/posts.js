@@ -1,3 +1,5 @@
+import { api, headers } from '../utils/ReadbleAPI'
+
 export function postsHasError(bool) {
   return {
     type: 'POSTS_HAS_ERROR',
@@ -19,6 +21,19 @@ export function postsFetchSuccess(posts) {
   }
 }
 
+export function postUpvote(post) {
+  return {
+    type: 'POST_UPVOTE',
+    post
+  }
+}
+
+export function postDownvote(post) {
+  return {
+    type: 'POST_DOWNVOTE',
+    post
+  }
+}
 
 
 export function errorAfterFiveSeconds() {
@@ -32,25 +47,8 @@ export function errorAfterFiveSeconds() {
 }
 
 
-const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5001'
-
-// Generate a unique token for storing the Posts data on the backend server
-let token = localStorage.token
-
-if (!token)
-  token = localStorage.token = Math.random().toString(36).substr(-8)
-
-const headers = {
-  'Accept': 'application/json',
-  'Authorization': token
-}
-
-
 export function fetchPosts() {
   return (dispatch) => {
-    // Dispatch the loading action (true)
-    dispatch(postsIsLoading(true))
-    console.log(api)
     fetch(`${api}/posts`, {headers})
       .then((response) => {
         if (!response.ok) {
@@ -76,3 +74,27 @@ export function fetchPosts() {
       })
   }
 }
+
+
+// Upvote function
+export const upVotePost = (postId) =>
+  fetch(`${api}/posts/${postId}`, {
+    headers,
+    method: 'post',
+    body: JSON.stringify({
+         option: "upVote"
+       })
+  })
+  // I need to add dispatch actions here
+
+  // Downvote function
+  export const downVotePost = (postId) => {
+    console.log("fired downvote API")
+    fetch(`${api}/posts/${postId}`, {
+      headers,
+      method: 'post',
+      body: JSON.stringify({
+           option: "downVote"
+         })
+    })
+  }
