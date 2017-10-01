@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 class Sidebar extends Component {
 
   render() {
-    console.log(this.props)
     return (
 
       <aside className="sidebar">

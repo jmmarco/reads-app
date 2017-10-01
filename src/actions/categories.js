@@ -35,7 +35,6 @@ export function fetchCategories() {
   return (dispatch) => {
     // Dispatch the loading action (true)
     dispatch(categoriesIsLoading(true))
-    console.log(api)
     fetch(`${api}/categories`, {headers})
       .then((response) => {
         if (!response.ok) {
@@ -51,7 +50,6 @@ export function fetchCategories() {
         return response.json()
       })
       .then((response) => {
-        console.log(response.categories)
         let responseArray = Object.keys(response.categories).map((k) => response.categories[k])
         console.log("the JSON array looks like: ", responseArray)
 

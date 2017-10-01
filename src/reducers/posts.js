@@ -24,3 +24,14 @@ export function posts(state = [], action) {
       return state
   }
 }
+
+export function postVoteScore(state = [], action) {
+  switch (action.type) {
+    case 'POST_UPVOTE':
+      return action.post
+    case 'POST_DOWNVOTE':
+      return action.post
+    default:
+      return state
+  }
+}

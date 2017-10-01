@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { fetchPosts } from './actions/posts'
+import { fetchPosts, upVotePost } from './actions/posts'
 import { fetchCategories } from './actions/categories'
 import { connect } from 'react-redux'
 import Header from './components/Header'
@@ -11,7 +11,6 @@ import './App.css';
 class App extends Component {
 
   componentDidMount() {
-    console.log("fired")
     this.props.fetchPosts()
     this.props.fetchCategories()
   }
@@ -42,10 +41,12 @@ class App extends Component {
 
 // we're going to map Redux's state and the dispatching of our action creator to props.
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     posts: state.posts,
     hasError: state.postsHasError,
     isLoading: state.postsIsLoading,
+    voteScore: state.voteScore,
     categories: state.categories,
 
   }
@@ -54,7 +55,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchPosts: (url) => dispatch(fetchPosts(url)),
-    fetchCategories: (url) => dispatch(fetchCategories(url))
+    fetchCategories: (url) => dispatch(fetchCategories(url)),
+    upVotePost: (postId) => dispatch(upVotePost(postId))
+
   }
 }
 

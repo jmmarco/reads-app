@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom'
 
 class Category extends Component {
   render() {
-    console.log("Inside Category")
     const { category, posts } = this.props
-    console.log("Category is: ", category)
-    console.log("Posts is: ", posts)
     if (category !== undefined) {
       return (
         <div>

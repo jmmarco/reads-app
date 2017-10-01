@@ -9,7 +9,6 @@ class Main extends Component {
     const posts = this.props.posts
     const categories = this.props.categories
 
-    console.log(this.props.posts, this.props.categories)
 
     return(
       <main className="content">
@@ -21,7 +20,7 @@ class Main extends Component {
           )}/>
         )}
 
-        { posts, categories && (
+        { posts && categories && (
           <Route path={`/:categoryName/posts`} render={({ match }) => (
             <Category
               category={categories.find(c => c.name === match.params.categoryName)}

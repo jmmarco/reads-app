@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { upVotePost, downVotePost } from '../actions/posts'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
 
@@ -8,17 +9,18 @@ class Post extends Component {
   upVote = (e) => {
     e.preventDefault()
     console.log("Upvote was clicked!")
+    upVotePost(this.props.post.id)
   }
 
   downVote = (e) => {
     e.preventDefault()
     console.log("Downvote was clicked!")
+    downVotePost(this.props.post.id)
   }
 
   render() {
     const { post } = this.props
 
-    console.log("Post is: ", post)
     if (post !== undefined) {
 
       return (
