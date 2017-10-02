@@ -30,25 +30,12 @@ export function postUpvote(post) {
 }
 
 export function postDownvote(post) {
-  console.log("Cookies")
   return {
     type: 'POST_DOWNVOTE',
-    // id: post.id,
+    id: post.id,
     post
   }
 }
-
-
-export function errorAfterFiveSeconds() {
-  // We return a function instead of an action object
-  return (dispatch) => {
-    setTimeout(() => {
-    // This function is able to dispatch other action creators
-      dispatch(postsHasError(true))
-    }, 5000)
-  }
-}
-
 
 export function fetchPosts() {
   return (dispatch) => {

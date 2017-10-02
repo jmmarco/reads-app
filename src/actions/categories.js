@@ -21,16 +21,6 @@ export function categoriesFetchSuccess(categories) {
   }
 }
 
-export function errorAfterFiveSeconds() {
-  // We return a function instead of an action object
-  return (dispatch) => {
-    setTimeout(() => {
-    // This function is able to dispatch other action creators
-      dispatch(categoriesHasError(true))
-    }, 5000)
-  }
-}
-
 export function fetchCategories() {
   return (dispatch) => {
     // Dispatch the loading action (true)
