@@ -28,7 +28,11 @@ export function posts(state = [], action) {
 export function postVoteScore(state = [], action) {
   switch (action.type) {
     case 'POST_UPVOTE':
-      return action.post
+    {
+      console.log("Hiseflkdflfkl")
+      return state.filter(post => post.id !== action.id)
+    }
+
     case 'POST_DOWNVOTE':
       return action.post
     default:

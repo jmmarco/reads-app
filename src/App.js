@@ -46,9 +46,7 @@ const mapStateToProps = (state) => {
     posts: state.posts,
     hasError: state.postsHasError,
     isLoading: state.postsIsLoading,
-    voteScore: state.voteScore,
     categories: state.categories,
-
   }
 }
 
@@ -56,7 +54,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchPosts: (url) => dispatch(fetchPosts(url)),
     fetchCategories: (url) => dispatch(fetchCategories(url)),
-    upVotePost: (postId) => dispatch(upVotePost(postId))
+    upVotePost: (posts) => dispatch(upVotePost(posts))
 
   }
 }

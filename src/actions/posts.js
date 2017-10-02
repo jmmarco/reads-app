@@ -22,9 +22,11 @@ export function postsFetchSuccess(posts) {
 }
 
 export function postUpvote(post) {
+  console.log("Do you even work?")
   return {
     type: 'POST_UPVOTE',
     id: post.id,
+    voteScore: post.voteScore,
     post
   }
 }
