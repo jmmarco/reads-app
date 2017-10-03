@@ -3,6 +3,7 @@ import { api, headers } from '../utils/ReadbleAPI'
 export const POSTS_HAS_ERROR = 'POSTS_HAS_ERROR'
 export const POSTS_IS_LOADING = 'POSTS_IS_LOADING'
 export const POSTS_FETCH_SUCCESS = 'POSTS_FETCH_SUCCESS'
+export const POST_UPVOTE = 'POST_UPVOTE'
 
 
 export function postsHasError(bool) {
@@ -25,6 +26,21 @@ export function postsFetchSuccess(posts) {
     posts
   }
 }
+
+export function postUpVote(post) {
+  return {
+    type: POST_UPVOTE,
+    voteScore: post.voteScore
+  }
+}
+
+export function postDownVote(post) {
+  return {
+    type: POST_UPVOTE,
+    voteScore: post.voteScore
+  }
+}
+
 
 
 export function fetchPosts() {
@@ -56,53 +72,53 @@ export function fetchPosts() {
 
 
 // Upvote function
-// export function upVote(post) {
-//   return (dispatch) => {
-//     console.log("Dispatching..")
-//
-//     dispatch(postUpVote(post))
-//     // fetch(`${api}/posts/${post.id}`, {
-//     //   headers,
-//     //   method: 'post',
-//     //   body: JSON.stringify({
-//     //        option: "upVote"
-//     //      })
-//     // })
-//     // .then((response) => {
-//     //   console.log("upVotePost response is: ", response)
-//     //   return response.json()
-//     // })
-//     // .then((post) => {
-//     //   dispatch(postUpVote(post))
-//     // })
-//     // .catch((error) => {
-//     //   console.log("Upvoting went wrong..", error)
-//     // })
-//   }
-// }
 
+export function downVote(post) {
+  console.log("inside downVote action")
 
-  // // Downvote function
-  // export function downVote(post) {
-  //
-  //   return (dispatch) => {
-  //     fetch(`${api}/posts/${post.id}`, {
-  //       headers,
-  //       method: 'post',
-  //       body: JSON.stringify({
-  //            option: "downVote"
-  //          })
-  //     })
-  //     .then((post) => {
-  //       console.log("Post after downvote API is: ", post.json())
-  //       return post.json()
-  //     })
-  //     .then((post) => {
-  //       dispatch(postDownVote(post))
-  //     })
-  //     .catch((error) => {
-  //       console.log("Something went wrong with downvote: ", error)
-  //     })
-  //   }
-  //
-  // }
+  return (dispatch) => {
+    fetch(`${api}/posts/${post.id}`, {
+      headers,
+      method: 'post',
+      body: JSON.stringify({
+           option: "downVote"
+         })
+    })
+    .then((post) => {
+      console.log("Post after downvote API is: ", post.json())
+      return post.json()
+    })
+    .then((post) => {
+      dispatch(postDownVote(post))
+    })
+    .catch((error) => {
+      console.log("Something went wrong with downvote: ", error)
+    })
+  }
+
+}
+
+export function upVote(post) {
+  console.log("inside upVote action")
+  return (dispatch) => {
+    console.log("dispatching...")
+    fetch(`${api}/posts/${post.id}`, {
+      headers,
+      method: 'post',
+      body: JSON.stringify({
+           option: "downVote"
+         })
+    })
+    .then((post) => {
+      console.log("Post after downvote API is: ", post.json())
+      return post.json()
+    })
+    .then((post) => {
+      dispatch(postUpVote(post))
+    })
+    .catch((error) => {
+      console.log("Something went wrong with downvote: ", error)
+    })
+  }
+
+}

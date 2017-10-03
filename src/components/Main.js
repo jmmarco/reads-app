@@ -9,6 +9,8 @@ class Main extends Component {
     const posts = this.props.posts
     const categories = this.props.categories
 
+    console.log("Hello from Main!", this.props)
+
 
     return(
       <main className="content">

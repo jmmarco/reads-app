@@ -1,13 +1,26 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { upVote, downVote } from '../actions/posts'
+import {downVote, upVote} from '../actions/posts'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
 
 class Post extends Component {
 
+  upVote = () => {
+    console.log("fired upvote", this.props.post)
+    upVote(this.props.post)
+  }
+
+
+  downVote = (e) => {
+    // e.preventDefault()
+    console.log("fired downvote", this.props.post)
+    downVote(this.props.post)
+
+  }
 
   render() {
+    console.log(this.props)
     const { post } = this.props
 
     if (post !== undefined) {
@@ -26,8 +39,8 @@ class Post extends Component {
             <button>Edit</button>
             <button>Remove</button>
             <span className="vote-control">
-              <button><ArrowUp size={30}/></button>
-              <button><ArrowDown size={30}/></button>
+              <button onClick={this.upVote}><ArrowUp size={30}/></button>
+              <button onClick={this.downVote}><ArrowDown size={30}/></button>
             </span>
 
           </div>

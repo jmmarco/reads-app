@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { posts, postsHasError, postsIsLoading } from './posts'
+import { posts, postsHasError, postsIsLoading, voteScore } from './posts'
 import { categories, categoriesHasError, categoriesIsLoading } from './categories'
 
 export default combineReducers({
@@ -9,5 +9,6 @@ export default combineReducers({
   postsHasError,
   postsIsLoading,
   posts,
+  voteScore
 
 })
