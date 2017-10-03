@@ -1,22 +1,26 @@
 import { api, headers } from '../utils/ReadbleAPI'
 
+export const CATEGORIES_HAS_ERROR = 'CATEGORIES_HAS_ERROR'
+export const CATEGORIES_IS_LOADING = 'CATEGORIES_IS_LOADING'
+export const CATEGORIES_FETCH_SUCCESS = 'CATEGORIES_FETCH_SUCCESS'
+
 export function categoriesHasError(bool) {
   return {
-    type: 'CATEGORIES_HAS_ERROR',
+    type: CATEGORIES_HAS_ERROR,
     hasError: bool
   }
 }
 
 export function categoriesIsLoading(bool) {
   return {
-    type: 'CATEGORIES_IS_LOADING',
+    type: CATEGORIES_IS_LOADING,
     isLoading: bool
   }
 }
 
 export function categoriesFetchSuccess(categories) {
   return {
-    type: 'CATEGORIES_FETCH_SUCCESS',
+    type: CATEGORIES_FETCH_SUCCESS,
     categories
   }
 }

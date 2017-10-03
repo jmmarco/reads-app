@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { fetchPosts, upVotePost } from './actions/posts'
+import { fetchPosts, postUpVote, upVote } from './actions/posts'
 import { fetchCategories } from './actions/categories'
 import { connect } from 'react-redux'
 import Header from './components/Header'
@@ -14,6 +14,7 @@ class App extends Component {
     this.props.fetchPosts()
     this.props.fetchCategories()
   }
+
 
 
   render() {
@@ -50,12 +51,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps (dispatch) {
   return {
     fetchPosts: (url) => dispatch(fetchPosts(url)),
     fetchCategories: (url) => dispatch(fetchCategories(url)),
-    upVotePost: (posts) => dispatch(upVotePost(posts))
-
   }
 }
 
