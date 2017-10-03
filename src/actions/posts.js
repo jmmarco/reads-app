@@ -4,7 +4,10 @@ export const POSTS_HAS_ERROR = 'POSTS_HAS_ERROR'
 export const POSTS_IS_LOADING = 'POSTS_IS_LOADING'
 export const POSTS_FETCH_SUCCESS = 'POSTS_FETCH_SUCCESS'
 export const POST_UPVOTE = 'POST_UPVOTE'
+export const POST_DOWNVOTE = 'POST_DOWNVOTE'
 
+
+// ACTION CREATORS
 
 export function postsHasError(bool) {
   return {
@@ -27,6 +30,7 @@ export function postsFetchSuccess(posts) {
   }
 }
 
+// Remember, send as little info as required for each action
 export function postUpVote(post) {
   return {
     type: POST_UPVOTE,
@@ -36,7 +40,7 @@ export function postUpVote(post) {
 
 export function postDownVote(post) {
   return {
-    type: POST_UPVOTE,
+    type: POST_DOWNVOTE,
     voteScore: post.voteScore
   }
 }

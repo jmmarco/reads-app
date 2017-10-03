@@ -2,9 +2,13 @@ import {
   POSTS_HAS_ERROR,
   POSTS_IS_LOADING,
   POSTS_FETCH_SUCCESS,
-  POST_UPVOTE
+  POST_UPVOTE,
+  POST_DOWNVOTE
 } from '../actions/posts'
 
+// Remember a reducer takes in two things:
+// 1. the action (info about what happened)
+// 2. copy of current state
 
 export function postsHasError(state = false, action) {
   switch (action.type) {
@@ -36,9 +40,8 @@ export function posts(state = [], action) {
 export function voteScore(state= [], action) {
   switch (action.type) {
     case POST_UPVOTE:
-      const {cheese} = action
-      console.log(cheese)
       return {}
+    case POST_DOWNVOTE:
     default:
       return state
   }

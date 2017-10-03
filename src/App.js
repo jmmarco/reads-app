@@ -41,7 +41,6 @@ class App extends Component {
 
 // we're going to map Redux's state and the dispatching of our action creator to props.
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     posts: state.posts,
     hasError: state.postsHasError,
@@ -55,12 +54,12 @@ function mapDispatchToProps (dispatch) {
   return {
     fetchPosts: (url) => dispatch(fetchPosts(url)),
     fetchCategories: (url) => dispatch(fetchCategories(url)),
-    up: (data) => dispatch(upVote(data)),
-    down: (data) => dispatch(downVote(data))
+    upVote: (data) => dispatch(upVote(data)),
+    downVote: (data) => dispatch(downVote(data))
   }
 }
 
 // Before:
 // export default App
 // After:
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App)
