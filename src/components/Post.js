@@ -1,23 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {downVote, upVote} from '../actions/posts'
+import { downVote, upVote } from '../actions/posts'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
 
 class Post extends Component {
 
-  upVote = () => {
-    console.log("fired upvote", this.props.post)
-    upVote(this.props.post)
-  }
-
-
-  downVote = (e) => {
-    // e.preventDefault()
-    console.log("fired downvote", this.props.post)
-    downVote(this.props.post)
-
-  }
 
   render() {
     console.log(this.props)
@@ -39,8 +28,8 @@ class Post extends Component {
             <button>Edit</button>
             <button>Remove</button>
             <span className="vote-control">
-              <button onClick={this.upVote}><ArrowUp size={30}/></button>
-              <button onClick={this.downVote}><ArrowDown size={30}/></button>
+              <button onClick={this.props.upVote.bind(null, post)}><ArrowUp size={30}/></button>
+              <button onClick={this.props.downVote.bind(null, post)}><ArrowDown size={30}/></button>
             </span>
 
           </div>
@@ -59,4 +48,18 @@ class Post extends Component {
   }
 }
 
-export default Post
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    upVote: (data) => dispatch(upVote(data)),
+    downVote: (data) => dispatch(downVote(data))
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post)

@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { fetchPosts, downVote, upVote } from './actions/posts'
+import { fetchPosts} from './actions/posts'
 import { fetchCategories } from './actions/categories'
 import { connect } from 'react-redux'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import Main from './components/Main'
-
 import './App.css';
+
+
 
 class App extends Component {
 
@@ -50,12 +51,9 @@ const mapStateToProps = (state) => {
 }
 
 function mapDispatchToProps (dispatch) {
-  console.log("Dispatch is: ", dispatch)
   return {
     fetchPosts: (url) => dispatch(fetchPosts(url)),
-    fetchCategories: (url) => dispatch(fetchCategories(url)),
-    upVote: (data) => dispatch(upVote(data)),
-    downVote: (data) => dispatch(downVote(data))
+    fetchCategories: (url) => dispatch(fetchCategories(url))
   }
 }
 
