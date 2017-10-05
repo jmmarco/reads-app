@@ -29,20 +29,48 @@ export function postsIsLoading(state = false, action) {
 }
 
 export function posts(state = [], action) {
+
+  // object destructuring from action
+  const { id, voteScore } = action
+
+  // Declare some helper variables
+  let postToUpdate, stateWithoutPost, score
+
   switch (action.type) {
     case POSTS_FETCH_SUCCESS:
       return action.posts
+    case POST_UPVOTE:
+      stateWithoutPost = state.filter((post) => post.id !== id )
+      postToUpdate = state.find((post) => post.id === id)
+
+      score = postToUpdate.voteScore
+      postToUpdate.voteScore = score + 1
+
+      return[
+        postToUpdate,
+        ...stateWithoutPost
+      ]
+    case POST_DOWNVOTE:
+      stateWithoutPost = state.filter((post) => post.id !== id )
+      postToUpdate = state.find((post) => post.id === id)
+      score = postToUpdate.voteScore
+      postToUpdate.voteScore = score - 1
+      return [
+        postToUpdate,
+        ...stateWithoutPost
+      ]
     default:
       return state
   }
 }
 
-export function voteScore(state= [], action) {
-  switch (action.type) {
-    case POST_UPVOTE:
-      return {}
-    case POST_DOWNVOTE:
-    default:
-      return state
-  }
-}
+// export function voteScore(state= [], action) {
+//   switch (action.type) {
+//     case POST_UPVOTE:
+//       return {...state, voteScore: action.voteScore}
+//     case POST_DOWNVOTE:
+//       return {...state, voteScore: action.voteScore}
+//     default:
+//       return state
+//   }
+// }
