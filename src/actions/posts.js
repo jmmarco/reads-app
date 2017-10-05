@@ -34,14 +34,16 @@ export function postsFetchSuccess(posts) {
 export function postUpVote(post) {
   return {
     type: POST_UPVOTE,
-    voteScore: post.voteScore
+    voteScore: post.voteScore,
+    id: post.id
   }
 }
 
 export function postDownVote(post) {
   return {
     type: POST_DOWNVOTE,
-    voteScore: post.voteScore
+    voteScore: post.voteScore,
+    id: post.id
   }
 }
 
@@ -78,9 +80,11 @@ export function fetchPosts() {
 // Upvote function
 
 export function downVote(post) {
+
   console.log("inside downVote action")
 
   return (dispatch) => {
+    console.log("Dispatching....")
     fetch(`${api}/posts/${post.id}`, {
       headers,
       method: 'post',
@@ -89,7 +93,7 @@ export function downVote(post) {
          })
     })
     .then((post) => {
-      console.log("Post after downvote API is: ", post.json())
+      console.log(post)
       return post.json()
     })
     .then((post) => {
@@ -103,18 +107,17 @@ export function downVote(post) {
 }
 
 export function upVote(post) {
-  console.log("inside upVote action")
+  console.log("inside upVote action", post.id)
   return (dispatch) => {
     console.log("dispatching...")
     fetch(`${api}/posts/${post.id}`, {
       headers,
       method: 'post',
       body: JSON.stringify({
-           option: "downVote"
+           option: "upVote"
          })
     })
     .then((post) => {
-      console.log("Post after downvote API is: ", post.json())
       return post.json()
     })
     .then((post) => {
