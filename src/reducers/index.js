@@ -9,6 +9,6 @@ export default combineReducers({
   postsHasError,
   postsIsLoading,
   posts,
-  voteScore
+  // voteScore
 
 })
