@@ -45,7 +45,7 @@ export function fetchCategories() {
       })
       .then((response) => {
         let responseArray = Object.keys(response.categories).map((k) => response.categories[k])
-        console.log("the JSON array looks like: ", responseArray)
+        // console.log("the JSON array looks like: ", responseArray)
 
         return responseArray
       })
