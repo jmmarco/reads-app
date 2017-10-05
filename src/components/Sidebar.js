@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom'
 class Sidebar extends Component {
 
   render() {
+
     return (
 
       <aside className="sidebar">
         <h2>Posts Listing</h2>
         <ul className="list">
-          {this.props.posts.map((post) => {
+          {this.props.posts.map((post, i) => {
             return (
-              <li key={post.id}>
+              <li key={i}>
 
                 <Link to={`/posts/${post.id}`}>{post.title}</Link>
 
