@@ -1,16 +1,99 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { downVote, upVote } from '../actions/posts'
+import { updatePost, downVote, upVote } from '../actions/posts'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
+// import EditPostForm from './EditPostForm'
 
 class Post extends Component {
 
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      isEditing: false,
+      saving: false,
+      value: '',
+      post: null
+    }
+
+    console.log("State from Constructor is: ", this.state)
+
+    this.toggleEdit = this.toggleEdit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("sjdsfssf", nextProps.post)
+    this.setState({
+      post: nextProps.post
+    })
+
+  }
+
+  toggleEdit() {
+    this.setState({
+      isEditing: !this.state.isEditing,
+    })
+  }
+
+  handleChange(event) {
+    const field = event.target.name
+    const post = this.state.post
+
+    post[field] = event.target.value
+
+    return this.setState({
+      post: post
+    })
+  }
+
+  handleSubmit(event) {
+    console.log("handleSubmit event is: ", event)
+    alert("A modification was made: ", this.state.value)
+    event.preventDefault()
+    this.props.updatePost(this.state.post)
+    this.setState({
+      isEditing: false
+    })
+
+
+  }
+
 
   render() {
-    console.log(this.props)
     const { post } = this.props
+
+
+
+    if (this.state.isEditing && post !== undefined) {
+      return (
+        <div>
+          <h2>Edit Post</h2>
+          {/* <EditPostForm
+            post={post}
+            onSubmit={this.handleSubmit}
+            onChange={this.handleChange}
+            placeholderText={post.title}
+          /> */}
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Title:
+              <input
+                type="text"
+                name="title"
+                value={post.value}
+                onChange={this.handleChange}
+                placeholder={post.title}
+              />
+            </label>
+            <br/>
+            <input type="submit" value="Submit"/>
+          </form>
+        </div>
+      )
+    }
 
     if (post !== undefined) {
 
@@ -25,7 +108,7 @@ class Post extends Component {
           <p>Score: {post.voteScore}</p>
 
           <div className="controls">
-            <button>Edit</button>
+            <button onClick={this.toggleEdit}>Edit</button>
             <button>Remove</button>
             <span className="vote-control">
               <button onClick={this.props.upVote.bind(null, post)}><ArrowUp size={30}/></button>
@@ -48,16 +131,19 @@ class Post extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  console.log(state)
   return {
-    posts: state.posts
+    posts: state.posts,
+    post: ownProps.post
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     upVote: (data) => dispatch(upVote(data)),
-    downVote: (data) => dispatch(downVote(data))
+    downVote: (data) => dispatch(downVote(data)),
+    updatePost: (data) => dispatch(updatePost(data))
   }
 }
 
