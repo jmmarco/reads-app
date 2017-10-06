@@ -5,6 +5,7 @@ export const POSTS_IS_LOADING = 'POSTS_IS_LOADING'
 export const POSTS_FETCH_SUCCESS = 'POSTS_FETCH_SUCCESS'
 export const POST_UPVOTE = 'POST_UPVOTE'
 export const POST_DOWNVOTE = 'POST_DOWNVOTE'
+export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
 
 
 // ACTION CREATORS
@@ -46,6 +47,18 @@ export function postDownVote(post) {
     id: post.id
   }
 }
+
+
+export function updatePostSuccess(post) {
+  return {
+    type: UPDATE_POST_SUCCESS,
+    post
+  }
+}
+
+
+
+// End of action creators
 
 
 
@@ -128,4 +141,27 @@ export function upVote(post) {
     })
   }
 
+}
+
+export function updatePost(post) {
+  console.log("Inside updatePost Action!!!!!!!!")
+  return (dispatch) => {
+    fetch(`${api}/posts/${post.id}`, {
+      headers,
+      method: 'PUT',
+      body: JSON.stringify({
+           title: post.title,
+           body: post.body
+         })
+    })
+    .then((post) => {
+      return post.json()
+    })
+    .then((post) => {
+      dispatch((updatePostSuccess(post)))
+    })
+    .catch((error) => {
+      console.log("Something went wrong with updating post")
+    })
+  }
 }
