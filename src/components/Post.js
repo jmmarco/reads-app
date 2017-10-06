@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Router, Link } from 'react-router-dom'
 import { updatePost, downVote, upVote } from '../actions/posts'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
@@ -71,11 +71,11 @@ class Post extends Component {
       return (
         <div>
           <h2>Edit Post</h2>
+
           {/* <EditPostForm
             post={post}
             onSubmit={this.handleSubmit}
             onChange={this.handleChange}
-            placeholderText={post.title}
           /> */}
           <form onSubmit={this.handleSubmit}>
             <label>
