@@ -4,7 +4,8 @@ import {
   POSTS_FETCH_SUCCESS,
   POST_UPVOTE,
   POST_DOWNVOTE,
-  UPDATE_POST_SUCCESS
+  UPDATE_POST_SUCCESS,
+  REMOVE_POST_SUCCESS
 } from '../actions/posts'
 
 // Remember a reducer takes in two things:
@@ -80,6 +81,15 @@ export function posts(state = [], action) {
       return [
         ...state.filter((post) => post.id !== id ),
         // Object.assign({}, action.post)
+      ]
+    case REMOVE_POST_SUCCESS:
+      console.log("Payload is: ", action)
+
+      console.log(
+        ...state.filter((post) => post.id !== id )
+      )
+      return [
+        ...state.filter((post) => post.id !== id )
       ]
     default:
       return state

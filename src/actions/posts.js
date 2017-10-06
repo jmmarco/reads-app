@@ -6,6 +6,8 @@ export const POSTS_FETCH_SUCCESS = 'POSTS_FETCH_SUCCESS'
 export const POST_UPVOTE = 'POST_UPVOTE'
 export const POST_DOWNVOTE = 'POST_DOWNVOTE'
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
+export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS'
+
 
 
 // ACTION CREATORS
@@ -53,6 +55,14 @@ export function updatePostSuccess(post) {
   return {
     type: UPDATE_POST_SUCCESS,
     post
+  }
+}
+
+export function removePostSuccess(id) {
+  console.log("Inisde action creator removePostSuccess")
+  return {
+    type: REMOVE_POST_SUCCESS,
+    id: id
   }
 }
 
@@ -125,10 +135,7 @@ export function upVote(post) {
     console.log("dispatching...")
     fetch(`${api}/posts/${post.id}`, {
       headers,
-      method: 'post',
-      body: JSON.stringify({
-           option: "upVote"
-         })
+      method: 'post'
     })
     .then((post) => {
       return post.json()
@@ -162,6 +169,27 @@ export function updatePost(post) {
     })
     .catch((error) => {
       console.log("Something went wrong with updating post")
+    })
+  }
+}
+
+
+export function deletePost(post) {
+  console.log("Inside deletePost Action!!!!!!!!")
+  return (dispatch) => {
+    fetch(`${api}/posts/${post.id}`, {
+      headers,
+      method: 'DELETE',
+    })
+    .then((response) => {
+      console.log("Response after remove is: ", response)
+      return response
+    })
+    .then((response) => {
+      dispatch(removePostSuccess(post.id))
+    })
+    .catch((error) => {
+      console.log("Something went wrong with removing post")
     })
   }
 }

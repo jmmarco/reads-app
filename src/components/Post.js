@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Router, Link } from 'react-router-dom'
-import { updatePost, downVote, upVote } from '../actions/posts'
+import { updatePost, downVote, upVote, deletePost } from '../actions/posts'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
 // import EditPostForm from './EditPostForm'
@@ -12,7 +12,7 @@ class Post extends Component {
     super(props, context)
     this.state = {
       isEditing: false,
-      saving: false,
+      isDeleted: false,
       value: '',
       post: null
     }
@@ -22,6 +22,7 @@ class Post extends Component {
     this.toggleEdit = this.toggleEdit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,7 +59,16 @@ class Post extends Component {
       isEditing: false
     })
 
+  }
 
+  handleRemove(event) {
+    // Make call to action here
+    alert("Remove has been clicked!")
+    console.log("State is: ", this.props)
+    this.props.deletePost(this.state.post)
+    this.setState({
+      isDeleted: true
+    })
   }
 
 
@@ -71,6 +81,9 @@ class Post extends Component {
       return (
         <div>
           <h2>Edit Post</h2>
+
+          {/* TODO: Figure out how to bind the onSubmit function
+          to a component */}
 
           {/* <EditPostForm
             post={post}
@@ -109,13 +122,21 @@ class Post extends Component {
 
           <div className="controls">
             <button onClick={this.toggleEdit}>Edit</button>
-            <button>Remove</button>
+            <button onClick={this.handleRemove}>Remove</button>
             <span className="vote-control">
               <button onClick={this.props.upVote.bind(null, post)}><ArrowUp size={30}/></button>
               <button onClick={this.props.downVote.bind(null, post)}><ArrowDown size={30}/></button>
             </span>
 
           </div>
+        </div>
+      )
+    }
+
+    if (this.state.isDeleted) {
+      return (
+        <div>
+          <p>Post has been deleted!</p>
         </div>
       )
     }
@@ -143,7 +164,8 @@ function mapDispatchToProps (dispatch) {
   return {
     upVote: (data) => dispatch(upVote(data)),
     downVote: (data) => dispatch(downVote(data)),
-    updatePost: (data) => dispatch(updatePost(data))
+    updatePost: (data) => dispatch(updatePost(data)),
+    deletePost: (data) => dispatch(deletePost(data))
   }
 }
 
