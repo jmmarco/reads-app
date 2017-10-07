@@ -17,8 +17,6 @@ class Post extends Component {
       post: null
     }
 
-    console.log("State from Constructor is: ", this.state)
-
     this.toggleEdit = this.toggleEdit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -26,7 +24,6 @@ class Post extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("sjdsfssf", nextProps.post)
     this.setState({
       post: nextProps.post
     })
@@ -51,8 +48,6 @@ class Post extends Component {
   }
 
   handleSubmit(event) {
-    console.log("handleSubmit event is: ", event)
-    alert("A modification was made: ", this.state.value)
     event.preventDefault()
     this.props.updatePost(this.state.post)
     this.setState({
@@ -63,8 +58,6 @@ class Post extends Component {
 
   handleRemove(event) {
     // Make call to action here
-    alert("Remove has been clicked!")
-    console.log("State is: ", this.props)
     this.props.deletePost(this.state.post)
     this.setState({
       isDeleted: true
@@ -153,7 +146,6 @@ class Post extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state)
   return {
     posts: state.posts,
     post: ownProps.post
