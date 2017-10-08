@@ -7,8 +7,9 @@ export const POST_UPVOTE = 'POST_UPVOTE'
 export const POST_DOWNVOTE = 'POST_DOWNVOTE'
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
 export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS'
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS'
 
-
+const uuid = require('uuid/v1')
 
 // ACTION CREATORS
 
@@ -63,6 +64,13 @@ export function removePostSuccess(id) {
   return {
     type: REMOVE_POST_SUCCESS,
     id: id
+  }
+}
+
+export function addPostSuccess(post) {
+  return {
+    type: ADD_POST_SUCCESS,
+    post
   }
 }
 
@@ -190,6 +198,37 @@ export function deletePost(post) {
     })
     .catch((error) => {
       console.log("Something went wrong with removing post")
+    })
+  }
+}
+
+export function addPost(post, history) {
+  console.log("Post before going into API is: ", post, history)
+  return (dispatch) => {
+    fetch(`${api}/posts`, {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({
+           id: uuid(),
+           timestamp: Date.now(),
+           title: post.title,
+           body: post.body,
+           author: post.author,
+           category: post.category
+         })
+    })
+    .then((post) => {
+
+      console.log(post)
+      return post.json()
+    })
+    .then((post) => {
+      console.log(post)
+      history.push(`/posts/${post.id}`)
+      dispatch(addPostSuccess(post))
+    })
+    .catch((error) => {
+      console.log("Something went wrong with addPost!", error)
     })
   }
 }
