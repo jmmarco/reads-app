@@ -10,28 +10,32 @@ class Main extends Component {
     const posts = this.props.posts
     const categories = this.props.categories
 
+
     return(
-      <main className="content">
-        <Route exact path={`/`} component={Home}/>
 
-        { posts && (
-          <Route path={`/posts/:postId`} render={({ match }) => (
-            <Post post={posts.find(p => p.id === match.params.postId )}/>
-          )}/>
-        )}
+        <main className="content">
+          <Route exact path={`/`} component={Home}/>
 
-        { posts && categories && (
-          <Route path={`/:categoryName/posts`} render={({ match }) => (
-            <Category
-              category={categories.find(c => c.name === match.params.categoryName)}
-              posts={posts.filter(p => p.category !== match.params.categoryName )}
-            />
-          )}/>
-        )}
+          <Route exact path={`/posts/new`} component={addPostForm}/>
 
-        <Route exact path={`/posts`} component={addPostForm}/>
-        
-      </main>
+          { posts && (
+            <Route path={`/posts/:postId`} render={({ match }) => (
+              <Post post={posts.find(p => p.id === match.params.postId )}/>
+            )}/>
+          )}
+
+          { posts && categories && (
+            <Route path={`/:categoryName/posts`} render={({ match }) => (
+              <Category
+                category={categories.find(c => c.name === match.params.categoryName)}
+                posts={posts.filter(p => p.category === match.params.categoryName )}
+              />
+            )}/>
+          )}
+
+        </main>
+
+
     )
   }
 }

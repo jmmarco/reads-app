@@ -43,7 +43,7 @@ class Sidebar extends Component {
           })}
         </ul>
         {/* <button onClick={this.handleAdd}>Add post</button> */}
-        <Link className="add-post-button" to={`/posts`}>Add post</Link>
+        <Link className="add-post-button" to={`/posts/new`}>Add post</Link>
         <hr/>
         <h2>Categories Listing</h2>
         <ul className="list">
