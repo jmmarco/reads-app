@@ -5,7 +5,8 @@ import {
   POST_UPVOTE,
   POST_DOWNVOTE,
   UPDATE_POST_SUCCESS,
-  REMOVE_POST_SUCCESS
+  REMOVE_POST_SUCCESS,
+  ADD_POST_SUCCESS
 } from '../actions/posts'
 
 // Remember a reducer takes in two things:
@@ -90,6 +91,10 @@ export function posts(state = [], action) {
       )
       return [
         ...state.filter((post) => post.id !== id )
+      ]
+    case ADD_POST_SUCCESS:
+      return [
+        ...state.concat(action.post)
       ]
     default:
       return state
