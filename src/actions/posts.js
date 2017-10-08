@@ -143,7 +143,10 @@ export function upVote(post) {
     console.log("dispatching...")
     fetch(`${api}/posts/${post.id}`, {
       headers,
-      method: 'post'
+      method: 'post',
+      body: JSON.stringify({
+           option: "upVote"
+         })
     })
     .then((post) => {
       return post.json()
