@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom'
 import Category from './Category'
 import Post from './Post'
 import Home from './Home'
+import addPostForm from './addPostForm'
 
 class Main extends Component {
   render() {
@@ -28,6 +29,8 @@ class Main extends Component {
           )}/>
         )}
 
+        <Route exact path={`/posts`} component={addPostForm}/>
+        
       </main>
     )
   }

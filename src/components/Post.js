@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Router, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { updatePost, downVote, upVote, deletePost } from '../actions/posts'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'

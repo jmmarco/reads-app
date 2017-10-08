@@ -1,7 +1,28 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { addPost } from '../actions/posts'
 
 class Sidebar extends Component {
+
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      post: null,
+      isAdding: false
+    }
+
+    this.handleAdd = this.handleAdd.bind(this)
+  }
+
+
+  handleAdd() {
+    alert("You clicked on add a new post")
+    this.props.addPost()
+    this.setState({
+      isAdding: true
+    })
+  }
 
   render() {
 
@@ -21,6 +42,8 @@ class Sidebar extends Component {
 
           })}
         </ul>
+        {/* <button onClick={this.handleAdd}>Add post</button> */}
+        <Link className="add-post-button" to={`/posts`}>Add post</Link>
         <hr/>
         <h2>Categories Listing</h2>
         <ul className="list">
@@ -39,4 +62,17 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar
+const mapStateToProps = (state) => {
+  // console.log(state)
+  return {
+    posts: state.posts
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    addPost: (data) => dispatch(addPost(data))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)
