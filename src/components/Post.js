@@ -95,7 +95,9 @@ class Post extends Component {
               />
             </label>
             <br/>
-            <input type="submit" value="Submit"/>
+            {/* <input className="button-post" type="submit" value="Submit"/> */}
+            <button className="button-post" type="submit">Submit</button>
+            <button className="button-post">Back</button>
           </form>
         </div>
       )
@@ -117,9 +119,12 @@ class Post extends Component {
             <button onClick={this.toggleEdit}>Edit</button>
             <button onClick={this.handleRemove}>Remove</button>
             <span className="vote-control">
-              <button onClick={this.props.upVote.bind(null, post)}><ArrowUp size={30}/></button>
-              <button onClick={this.props.downVote.bind(null, post)}><ArrowDown size={30}/></button>
+              <button onClick={() => this.props.upVote(post)}><ArrowUp size={30}/></button>
+              <button onClick={() => this.props.downVote(post)}><ArrowDown size={30}/></button>
             </span>
+
+          </div>
+          <div className="post-comments">
 
           </div>
         </div>
