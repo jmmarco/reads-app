@@ -63,7 +63,7 @@ class Category extends Component {
     const { category } = this.props
     const posts = this.state.posts
 
-    if (category !== undefined && posts!== null) {
+    if (category !== undefined && posts !== null) {
       return (
         <div>
           <h2>These are all the posts in the {category.name} category</h2>
@@ -82,8 +82,8 @@ class Category extends Component {
             }
           </ul>
           <hr/>
-          <button className="button-sort" onClick={() => this.toggleSort('score')}>Sort by score</button>
-          <button className="button-sort" onClick={() => this.toggleSort('date')}>Sort by date</button>
+          <button className="button-post" onClick={() => this.toggleSort('score')}>Sort by score</button>
+          <button className="button-post" onClick={() => this.toggleSort('date')}>Sort by date</button>
 
         </div>
       )
