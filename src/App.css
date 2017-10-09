@@ -66,10 +66,13 @@ body, html {
 
 }
 
+
 .controls {
   display: flex;
   justify-content: space-between;
 }
+
+
 
 button {
   border: 0;
@@ -84,4 +87,13 @@ button {
 
 button:active {
   background: lightskyblue;
+}
+
+.button-sort {
+  margin-left: 0;
+  /*text-transform: uppercase;*/
+  /*background: deepskyblue;*/
+  font-weight: 700;
+  /*border-radius: 5px;*/
+  font-size: 1em;
 }
