@@ -19,13 +19,13 @@ class Main extends Component {
           <Route exact path={`/posts/new`} component={addPostForm}/>
 
           { posts && (
-            <Route path={`/posts/:postId`} render={({ match }) => (
+            <Route exact path={`/posts/:postId`} render={({ match }) => (
               <Post post={posts.find(p => p.id === match.params.postId )}/>
             )}/>
           )}
 
           { posts && categories && (
-            <Route path={`/:categoryName/posts`} render={({ match }) => (
+            <Route exact path={`/:categoryName/posts`} render={({ match }) => (
               <Category
                 category={categories.find(c => c.name === match.params.categoryName)}
                 posts={posts.filter(p => p.category === match.params.categoryName )}
