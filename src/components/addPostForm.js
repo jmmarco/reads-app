@@ -38,9 +38,8 @@ class addPostForm extends Component {
 
   savePost(event) {
     const {history} =  this.props
-    alert("Sent the form data!")
     event.preventDefault()
-    console.log(history)
+
     this.props.addPost(this.state.post, history)
     this.setState({
       saving: true
