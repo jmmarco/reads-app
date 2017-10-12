@@ -6,18 +6,13 @@ import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
 
 class Comment extends Component {
 
-componentDidMount() {
-  console.log(this.props.post)
-  const { post } = this.props
-  this.props.fetchComments(post.id)
-}
-
-
+  componentDidMount() {
+    const { post } = this.props
+    this.props.fetchComments(post.id)
+  }
 
 
   render() {
-    console.log(this.state)
-    console.log(this.props)
 
     const { comments } = this.props
 
@@ -31,14 +26,15 @@ componentDidMount() {
                 <li key={i} className="comment">
                   <p>{comment.body}</p>
                   <p>Score: {comment.voteScore} | Date: {new Date(comment.timestamp).toDateString()}</p>
+                  <p>By: {comment.author}</p>
                   <div className="comment-control">
                     <button
-                      className="button-comment"
+                      className="button-comment-vote"
                       onClick={() => this.props.upVote(comment)}>
                       <ArrowUp size={25}/>
                     </button>
                     <button
-                      className="button-comment"
+                      className="button-comment-vote"
                       onClick={() => this.props.downVote(comment)}>
                       <ArrowDown size={25}/>
                     </button>
@@ -47,6 +43,7 @@ componentDidMount() {
               )
             })}
           </ul>
+          <button className="button-comment" onClick={this.props.toggleAddComment}>Add Comment</button>
         </div>
       )
     }
@@ -63,7 +60,6 @@ componentDidMount() {
 }
 
 const mapStateToProps = (state) => {
-  console.log("State from Comment Component is: ", state)
   return {
     comments: state.comments
   }
