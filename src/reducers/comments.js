@@ -1,7 +1,8 @@
 import {
   COMMENTS_FETCH_SUCCESS,
   COMMENT_UPVOTE,
-  COMMENT_DOWNVOTE
+  COMMENT_DOWNVOTE,
+  ADD_COMMENT_SUCCESS,
  } from '../actions/comments'
 
 export function comments (state = [], action) {
@@ -47,6 +48,11 @@ export function comments (state = [], action) {
       sortedCommentsByDate = _.sortBy(comments, 'timestamp')
 
       return sortedCommentsByDate
+    case ADD_COMMENT_SUCCESS:
+      console.log("Inside ADD_COMMENT_SUCESS Reducer..")
+      return [
+        ...state.concat(action.comment)
+      ]
     default:
       return state
   }
