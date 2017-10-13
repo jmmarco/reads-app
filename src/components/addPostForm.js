@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
 import { addPost } from '../actions/posts'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 class AddPostForm extends Component {
 
@@ -94,7 +94,9 @@ class AddPostForm extends Component {
             />
           </label>
           <br/>
-          <input type="submit" value="Submit"/>
+          <button type="submit">Submit Post</button>
+          {/* <button>Go Back</button> */}
+          <Link className="link-button " to="/">Go Back</Link>
         </form>
       </div>
     )

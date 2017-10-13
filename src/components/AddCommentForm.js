@@ -50,7 +50,7 @@ class AddCommentForm extends Component {
 
     return (
       <div className="comments-box">
-        <h2>New Comment</h2>
+        <h3>New Comment</h3>
         <form onSubmit={this.saveComment}>
           <label>
             Body:

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Comment from './Comment'
 import AddCommentForm from './AddCommentForm'
+import EditPostForm from './EditPostForm'
 import { updatePost, downVote, upVote, deletePost } from '../actions/posts'
 import { fetchComments } from '../actions/comments'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
@@ -16,6 +17,7 @@ class Post extends Component {
     this.state = {
       isEditing: false,
       isDeleted: false,
+      isAdding: true,
       value: '',
       post: null,
       isAddingComment: false
@@ -36,7 +38,6 @@ class Post extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('What the hell is :', nextProps)
 
     this.setState({
       post: nextProps.post
@@ -94,38 +95,17 @@ class Post extends Component {
 
 
   render() {
+    console.log("firing from Post component")
     const { post } = this.props
 
     if (this.state.isEditing && post !== undefined) {
       return (
-        <div>
-          <h2>Edit Post</h2>
 
-          {/* TODO: Figure out how to bind the onSubmit function
-          to a component */}
-
-          {/* <EditPostForm
+          <EditPostForm
             post={post}
-            onSubmit={this.handleSubmit}
-            onChange={this.handleChange}
-          /> */}
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Title:
-              <input
-                type="text"
-                name="title"
-                value={post.value}
-                onChange={this.handleChange}
-                placeholder={post.title}
-              />
-            </label>
-            <br/>
-            {/* <input className="button-post" type="submit" value="Submit"/> */}
-            <button className="button-post" type="submit">Submit</button>
-            <button className="button-post">Back</button>
-          </form>
-        </div>
+            handleSubmit={this.handleSubmit.bind(this)}
+            handleChange={this.handleChange.bind(this)}
+          />
       )
     }
 
@@ -173,6 +153,14 @@ class Post extends Component {
       return (
         <div>
           <p>Post has been deleted!</p>
+        </div>
+      )
+    }
+
+    if (this.state.isAdding) {
+      return (
+        <div>
+          {/* Empty on purpose because this will render the AddPostForm Component */}
         </div>
       )
     }
