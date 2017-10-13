@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Comment from './Comment'
+import AddCommentForm from './AddCommentForm'
 import { updatePost, downVote, upVote, deletePost } from '../actions/posts'
+import { fetchComments } from '../actions/comments'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
 // import EditPostForm from './EditPostForm'
@@ -14,20 +17,43 @@ class Post extends Component {
       isEditing: false,
       isDeleted: false,
       value: '',
-      post: null
+      post: null,
+      isAddingComment: false
     }
 
+    this.toggleAddComment = this.toggleAddComment.bind(this)
     this.toggleEdit = this.toggleEdit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
   }
 
+
+  componentDidMount() {
+    console.log(this.props)
+    // Go and fetch the comment for this specific post
+    // this.props.fetchComments(nextProps.post.id)
+  }
+
   componentWillReceiveProps(nextProps) {
+    console.log('What the hell is :', nextProps)
+
     this.setState({
       post: nextProps.post
     })
 
+    // Go and fetch the comment for this specific post
+    if (this.state.post !== null && this.state.post !== undefined) {
+      this.props.fetchComments(this.state.post.id)
+    }
+
+
+  }
+
+  toggleAddComment() {
+    this.setState({
+      isAddingComment: !this.state.isAddingComment
+    })
   }
 
   toggleEdit() {
@@ -65,10 +91,10 @@ class Post extends Component {
   }
 
 
+
+
   render() {
     const { post } = this.props
-
-
 
     if (this.state.isEditing && post !== undefined) {
       return (
@@ -106,27 +132,39 @@ class Post extends Component {
     if (post !== undefined) {
 
       return (
-        <div className="post-body">
-          <h2>{post.title}</h2>
-          <h3>Posted in category: <Link to={`/categories/${post.category}`}>{post.category}</Link></h3>
-          <p>{post.body}</p>
+        <div className="post">
+          <div className="post-body">
+            <h2>{post.title}</h2>
+            <h3>Posted in category: <Link to={`/categories/${post.category}`}>{post.category}</Link></h3>
+            <p>{post.body}</p>
 
-          <hr/>
-          <p>Written by: <a href="">{post.author}</a> on: {new Date(post.timestamp).toLocaleString()}</p>
-          <p>Score: {post.voteScore}</p>
+            <hr/>
+            <p>Written by: <a href="">{post.author}</a> on: {new Date(post.timestamp).toLocaleString()}</p>
+            <p>Score: {post.voteScore}</p>
 
-          <div className="controls">
-            <button onClick={this.toggleEdit}>Edit</button>
-            <button onClick={this.handleRemove}>Remove</button>
-            <span className="vote-control">
-              <button onClick={() => this.props.upVote(post)}><ArrowUp size={30}/></button>
-              <button onClick={() => this.props.downVote(post)}><ArrowDown size={30}/></button>
-            </span>
-
+            <div className="controls">
+              <button onClick={this.toggleEdit}>Edit</button>
+              <button onClick={this.handleRemove}>Remove</button>
+              <span className="vote-control">
+                <button onClick={() => this.props.upVote(post)}><ArrowUp size={30}/></button>
+                <button onClick={() => this.props.downVote(post)}><ArrowDown size={30}/></button>
+              </span>
+            </div>
           </div>
+
           <div className="post-comments">
 
+            { !this.state.isAddingComment && post && (
+              <Comment post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
+            )}
+
+            { this.state.isAddingComment && post && (
+              <AddCommentForm post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
+            )}
+
           </div>
+
+
         </div>
       )
     }
@@ -153,7 +191,8 @@ class Post extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     posts: state.posts,
-    post: ownProps.post
+    post: ownProps.post,
+    // commments: state.comments
   }
 }
 
@@ -162,7 +201,9 @@ function mapDispatchToProps (dispatch) {
     upVote: (data) => dispatch(upVote(data)),
     downVote: (data) => dispatch(downVote(data)),
     updatePost: (data) => dispatch(updatePost(data)),
-    deletePost: (data) => dispatch(deletePost(data))
+    deletePost: (data) => dispatch(deletePost(data)),
+    fetchComments: (data) => dispatch(fetchComments(data))
+
   }
 }
 
