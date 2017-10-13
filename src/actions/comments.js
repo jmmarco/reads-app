@@ -4,6 +4,7 @@ export const COMMENTS_FETCH_SUCCESS = 'COMMENTS_FETCH_SUCCESS'
 export const COMMENT_UPVOTE = 'COMMENT_UPVOTE'
 export const COMMENT_DOWNVOTE = 'COMMENT_DOWNVOTE'
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS'
+export const UPDATE_COMMENT_SUCCESS = 'UPDATE_COMMENT_SUCCESS'
 export const REMOVE_COMMENT_SUCCESS = 'REMOVE_COMMENT_SUCCESS'
 
 const uuid = require('uuid/v1')
@@ -43,6 +44,13 @@ export function removeCommentSuccess(id) {
   return {
     type: REMOVE_COMMENT_SUCCESS,
     id: id
+  }
+}
+
+export function updateCommentSuccess(comment) {
+  return {
+    type: UPDATE_COMMENT_SUCCESS,
+    comment
   }
 }
 
@@ -103,6 +111,29 @@ export function downVote(comment) {
 
 }
 
+export function updateComment(comment) {
+  console.log("Inside updateComment Action!!!!!!!!")
+  return (dispatch) => {
+    fetch(`${api}/comments/${comment.id}`, {
+      headers,
+      method: 'PUT',
+      body: JSON.stringify({
+           timestamp: Date.now(),
+           body: comment.body
+         })
+    })
+    .then((comment) => {
+      return comment.json()
+    })
+    .then((comment) => {
+      dispatch((updateCommentSuccess(comment)))
+    })
+    .catch((error) => {
+      console.log("Something went wrong with updating comment")
+    })
+  }
+}
+
 export function addComment(comment, history) {
   console.log("inside add comment!")
   return (dispatch) => {
@@ -121,7 +152,7 @@ export function addComment(comment, history) {
       return response.json()
     })
     .then((comment) => {
-      // history.push(`/comments/${comment.id}`)
+      // history.push(`/comments/${comment.id}`) <-- this won't work properly
       dispatch(addCommentSuccess(comment))
     })
     .catch((error) => {
