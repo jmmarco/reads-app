@@ -3,7 +3,8 @@ import { Route } from 'react-router-dom'
 import Category from './Category'
 import Post from './Post'
 import Home from './Home'
-import addPostForm from './addPostForm'
+import AddPostForm from './AddPostForm'
+// import AddCommentForm from './AddCommentForm'
 
 class Main extends Component {
   render() {
@@ -16,7 +17,8 @@ class Main extends Component {
         <main className="content">
           <Route exact path={`/`} component={Home}/>
 
-          <Route exact path={`/posts/new`} component={addPostForm}/>
+          <Route exact path={`/posts/new`} component={AddPostForm}/>
+
 
           { posts && (
             <Route exact path={`/posts/:postId`} render={({ match }) => (
