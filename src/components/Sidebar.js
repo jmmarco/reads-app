@@ -12,17 +12,17 @@ class Sidebar extends Component {
       isAdding: false
     }
 
-    this.handleAdd = this.handleAdd.bind(this)
+    // this.handleAdd = this.handleAdd.bind(this)
   }
 
 
-  handleAdd() {
-    alert("You clicked on add a new post")
-    this.props.addPost()
-    this.setState({
-      isAdding: true
-    })
-  }
+  // handleAdd() {
+  //   alert("You clicked on add a new post")
+  //   this.props.addPost()
+  //   this.setState({
+  //     isAdding: true
+  //   })
+  // }
 
   render() {
 
@@ -62,17 +62,17 @@ class Sidebar extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log(state)
-  return {
-    posts: state.posts
-  }
-}
+// const mapStateToProps = (state) => {
+//   // console.log(state)
+//   return {
+//     posts: state.posts
+//   }
+// }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    addPost: (data) => dispatch(addPost(data))
-  }
-}
+// function mapDispatchToProps (dispatch) {
+//   return {
+//     addPost: (data) => dispatch(addPost(data))
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)
+export default Sidebar
