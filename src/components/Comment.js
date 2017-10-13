@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { fetchComments, upVote, downVote } from '../actions/comments'
+import { fetchComments, upVote, downVote, deleteComment } from '../actions/comments'
 import { connect } from 'react-redux'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
+import Edit from 'react-icons/lib/fa/edit'
+import Trash from 'react-icons/lib/fa/trash'
 
 class Comment extends Component {
 
@@ -28,13 +30,17 @@ class Comment extends Component {
                   <p>Score: {comment.voteScore} | Date: {new Date(comment.timestamp).toDateString()}</p>
                   <p>By: {comment.author}</p>
                   <div className="comment-control">
+                    <button onClick={() => this.props.deleteComment(comment)}>
+                      <Trash size={25}/>
+                    </button>
+                    <button>
+                      <Edit size={25}/>
+                    </button>
                     <button
-                      className="button-comment-vote"
                       onClick={() => this.props.upVote(comment)}>
                       <ArrowUp size={25}/>
                     </button>
                     <button
-                      className="button-comment-vote"
                       onClick={() => this.props.downVote(comment)}>
                       <ArrowDown size={25}/>
                     </button>
@@ -71,6 +77,7 @@ function mapDispatchToProps (dispatch) {
   return {
     upVote: (data) => dispatch(upVote(data)),
     downVote: (data) => dispatch(downVote(data)),
+    deleteComment: (data) => dispatch(deleteComment(data)),
     fetchComments: (data) => dispatch(fetchComments(data))
   }
 }
