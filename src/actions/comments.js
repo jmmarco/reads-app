@@ -4,6 +4,7 @@ export const COMMENTS_FETCH_SUCCESS = 'COMMENTS_FETCH_SUCCESS'
 export const COMMENT_UPVOTE = 'COMMENT_UPVOTE'
 export const COMMENT_DOWNVOTE = 'COMMENT_DOWNVOTE'
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS'
+export const REMOVE_COMMENT_SUCCESS = 'REMOVE_COMMENT_SUCCESS'
 
 const uuid = require('uuid/v1')
 
@@ -38,6 +39,13 @@ export function addCommentSuccess(comment) {
   }
 }
 
+export function removeCommentSuccess(id) {
+  return {
+    type: REMOVE_COMMENT_SUCCESS,
+    id: id
+  }
+}
+
 
 // API Stuff
 export function fetchComments(id) {
@@ -50,7 +58,7 @@ export function fetchComments(id) {
       return response.json()
     })
     .then((comments) => {
-      console.log(comments)
+      // console.log(comments)
       dispatch(commentsFetchSuccess(comments))
     })
     .catch((error) => {
@@ -95,7 +103,7 @@ export function downVote(comment) {
 
 }
 
-export function addComment(comment) {
+export function addComment(comment, history) {
   console.log("inside add comment!")
   return (dispatch) => {
     fetch(`${api}/comments`, {
@@ -118,6 +126,26 @@ export function addComment(comment) {
     })
     .catch((error) => {
       console.log("Something went wrong with addComment: ", error)
+    })
+  }
+}
+
+export function deleteComment(comment) {
+  console.log("Inside deleteComment Action!!!!!!!!")
+  return (dispatch) => {
+    fetch(`${api}/comments/${comment.id}`, {
+      headers,
+      method: 'DELETE',
+    })
+    .then((response) => {
+      console.log("Response after remove is: ", response)
+      return response
+    })
+    .then((response) => {
+      dispatch(removeCommentSuccess(comment.id))
+    })
+    .catch((error) => {
+      console.log("Something went wrong with removing comment")
     })
   }
 }
