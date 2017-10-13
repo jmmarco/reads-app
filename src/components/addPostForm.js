@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { addPost } from '../actions/posts'
 import { withRouter } from 'react-router-dom'
 
-class addPostForm extends Component {
+class AddPostForm extends Component {
 
   constructor(props) {
     super(props)
@@ -22,7 +22,6 @@ class addPostForm extends Component {
 
     this.updatePostState = this.updatePostState.bind(this)
     this.savePost = this.savePost.bind(this)
-
   }
 
 
@@ -116,4 +115,4 @@ function mapDispatchToProps(dispatch) {
 
 // export default withRouter(connect(null, { actionCreatorName })(ReactComponent));
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(addPostForm))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPostForm))
