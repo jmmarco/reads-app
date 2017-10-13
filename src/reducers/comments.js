@@ -3,6 +3,7 @@ import {
   COMMENT_UPVOTE,
   COMMENT_DOWNVOTE,
   ADD_COMMENT_SUCCESS,
+  REMOVE_COMMENT_SUCCESS
  } from '../actions/comments'
 
 export function comments (state = [], action) {
@@ -52,6 +53,10 @@ export function comments (state = [], action) {
       console.log("Inside ADD_COMMENT_SUCESS Reducer..")
       return [
         ...state.concat(action.comment)
+      ]
+    case REMOVE_COMMENT_SUCCESS:
+      return [
+        ...state.filter((comment) => comment.id !== id )
       ]
     default:
       return state
