@@ -28,12 +28,10 @@ class Comment extends Component {
   }
 
   toggleEdit(comment) {
-    console.log("e is: ", comment)
     this.setState({
       comment: comment,
       isEditing: !this.state.isEditing,
     })
-    console.log(this.state)
   }
 
   handleChange(event) {
@@ -61,7 +59,6 @@ class Comment extends Component {
 
     const { comments } = this.props
     const { comment } = this.state
-    console.log("Comment is now: ", this.state.comment)
 
     if (this.state.isEditing && comment !== null) {
       return (

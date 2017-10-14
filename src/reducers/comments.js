@@ -19,7 +19,6 @@ export function comments (state = [], action) {
     case COMMENTS_FETCH_SUCCESS:
       return action.comments
     case COMMENT_UPVOTE:
-      console.log("Payload is:", action)
       stateWithoutComment = state.filter((comment) => comment.id !== id )
       commentToUpdate = state.find((comment) => comment.id === id)
 
@@ -35,7 +34,6 @@ export function comments (state = [], action) {
 
       return sortedCommentsByDate
     case COMMENT_DOWNVOTE:
-      console.log("Payload is:", action)
       stateWithoutComment = state.filter((comment) => comment.id !== id )
       commentToUpdate = state.find((comment) => comment.id === id)
 
@@ -55,7 +53,6 @@ export function comments (state = [], action) {
           ...state.filter((comment) => comment.id !== id ),
         ]
     case ADD_COMMENT_SUCCESS:
-      console.log("Inside ADD_COMMENT_SUCESS Reducer..")
       return [
         ...state.concat(action.comment)
       ]

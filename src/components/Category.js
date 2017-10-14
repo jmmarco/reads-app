@@ -21,30 +21,26 @@ class Category extends Component {
 
 
   toggleSort(option) {
-    console.log("Option is :", option)
+
     const { order } = this.state
     const { posts } = this.props
 
     if (!order && option === 'date') {
-      console.log("order false, option 'date'")
       this.setState({ order: true })
       this.props.sortPostsByDateAsc(posts)
     }
 
     if (order && option === 'date') {
-      console.log("order true, option 'date'")
       this.setState({ order: false })
       this.props.sortPostsByDateDsc(posts)
     }
 
     if (!order && option === 'score') {
-      console.log("order false, option 'score'")
       this.setState({ order: true })
       this.props.sortPostsByScoreAsc(posts)
     }
 
     if (order && option === 'score') {
-      console.log("order is true and option is 'score'")
       this.setState({ order: false })
       this.props.sortPostsByScoreDsc(posts)
     }
@@ -52,8 +48,6 @@ class Category extends Component {
   }
 
   render() {
-    // console.log(this.props)
-    // console.log(this.state)
     const { category, posts } = this.props
 
 
@@ -95,7 +89,6 @@ class Category extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state  )
   return {
     // Nothing for now
     // posts: this.props

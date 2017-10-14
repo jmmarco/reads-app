@@ -7,8 +7,6 @@ class AddCommentForm extends Component {
 
   constructor(props) {
     super(props)
-    console.log(props)
-    console.log("this.props is: ", this.props)
     this.state = {
       comment: {
         id: '',

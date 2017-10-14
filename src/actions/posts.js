@@ -64,7 +64,6 @@ export function updatePostSuccess(post) {
 }
 
 export function removePostSuccess(id) {
-  console.log("Inisde action creator removePostSuccess")
   return {
     type: REMOVE_POST_SUCCESS,
     id: id
@@ -124,7 +123,6 @@ export function fetchPosts() {
       // If all goes well parse the response into a JSON format
       .then((response) => {
         let json = response.json()
-        // console.log("JSON looks like this: ", json)
         return json
       })
       // Dispatch the the fetch success action
@@ -132,7 +130,7 @@ export function fetchPosts() {
       .catch((error) => {
         // If something goes wrong dispatch the error action
         dispatch(postsHasError(true))
-        console.log("Something went wrong..", error)
+        console.log("Something went wrong fetching posts..", error)
       })
   }
 }
@@ -141,11 +139,7 @@ export function fetchPosts() {
 // Upvote function
 
 export function downVote(post) {
-
-  console.log("inside downVote action")
-
   return (dispatch) => {
-    console.log("Dispatching....")
     fetch(`${api}/posts/${post.id}`, {
       headers,
       method: 'post',
@@ -154,7 +148,6 @@ export function downVote(post) {
          })
     })
     .then((post) => {
-      console.log(post)
       return post.json()
     })
     .then((post) => {
@@ -168,9 +161,7 @@ export function downVote(post) {
 }
 
 export function upVote(post) {
-  console.log("inside upVote action", post.id)
   return (dispatch) => {
-    console.log("dispatching...")
     fetch(`${api}/posts/${post.id}`, {
       headers,
       method: 'post',
@@ -192,7 +183,6 @@ export function upVote(post) {
 }
 
 export function updatePost(post) {
-  console.log("Inside updatePost Action!!!!!!!!")
   return (dispatch) => {
     fetch(`${api}/posts/${post.id}`, {
       headers,
@@ -216,14 +206,12 @@ export function updatePost(post) {
 
 
 export function deletePost(post) {
-  console.log("Inside deletePost Action!!!!!!!!")
   return (dispatch) => {
     fetch(`${api}/posts/${post.id}`, {
       headers,
       method: 'DELETE',
     })
     .then((response) => {
-      console.log("Response after remove is: ", response)
       return response
     })
     .then((response) => {
@@ -236,7 +224,6 @@ export function deletePost(post) {
 }
 
 export function addPost(post, history) {
-  console.log("Post before going into API is: ", post, history)
   return (dispatch) => {
     fetch(`${api}/posts`, {
       headers,
@@ -251,12 +238,9 @@ export function addPost(post, history) {
          })
     })
     .then((post) => {
-
-      console.log(post)
       return post.json()
     })
     .then((post) => {
-      console.log(post)
       history.push(`/posts/${post.id}`)
       dispatch(addPostSuccess(post))
     })

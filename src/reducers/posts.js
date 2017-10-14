@@ -50,7 +50,6 @@ export function posts(state = [], action) {
     case POSTS_FETCH_SUCCESS:
       return action.posts
     case POST_UPVOTE:
-      console.log("Payload is:", action)
       stateWithoutPost = state.filter((post) => post.id !== id )
       postToUpdate = state.find((post) => post.id === id)
 
@@ -75,9 +74,6 @@ export function posts(state = [], action) {
         ...state.filter((post) => post.id !== id ),
       ]
     case REMOVE_POST_SUCCESS:
-      console.log(
-        ...state.filter((post) => post.id !== id )
-      )
       return [
         ...state.filter((post) => post.id !== id )
       ]
@@ -88,7 +84,6 @@ export function posts(state = [], action) {
     case SORT_POSTS_BY_DATE_ASC:
         return sortedPosts = _.orderBy(posts, 'timestamp', 'asc')
     case SORT_POSTS_BY_DATE_DSC:
-      console.log("Sort posts by date dsc reducer")
         return sortedPosts = _.orderBy(posts, 'timestamp', 'dsc').reverse()
     case SORT_POSTS_BY_SCORE_ASC:
         return sortedPosts = _.orderBy(posts, 'voteScore', 'asc')

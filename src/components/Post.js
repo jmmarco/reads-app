@@ -30,13 +30,6 @@ class Post extends Component {
     this.handleRemove = this.handleRemove.bind(this)
   }
 
-
-  componentDidMount() {
-    console.log(this.props)
-    // Go and fetch the comment for this specific post
-    // this.props.fetchComments(nextProps.post.id)
-  }
-
   componentWillReceiveProps(nextProps) {
 
     this.setState({

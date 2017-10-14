@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 class EditPostForm extends Component {
 
   render() {
-    console.log("Props for EditPostForm are: ", this.props)
     const { post, handleSubmit, handleChange} =  this.props
     return(
       <div>

@@ -66,7 +66,6 @@ export function fetchComments(id) {
       return response.json()
     })
     .then((comments) => {
-      // console.log(comments)
       dispatch(commentsFetchSuccess(comments))
     })
     .catch((error) => {
@@ -112,7 +111,6 @@ export function downVote(comment) {
 }
 
 export function updateComment(comment) {
-  console.log("Inside updateComment Action!!!!!!!!")
   return (dispatch) => {
     fetch(`${api}/comments/${comment.id}`, {
       headers,
@@ -135,7 +133,6 @@ export function updateComment(comment) {
 }
 
 export function addComment(comment, history) {
-  console.log("inside add comment!")
   return (dispatch) => {
     fetch(`${api}/comments`, {
       headers,
@@ -162,14 +159,12 @@ export function addComment(comment, history) {
 }
 
 export function deleteComment(comment) {
-  console.log("Inside deleteComment Action!!!!!!!!")
   return (dispatch) => {
     fetch(`${api}/comments/${comment.id}`, {
       headers,
       method: 'DELETE',
     })
     .then((response) => {
-      console.log("Response after remove is: ", response)
       return response
     })
     .then((response) => {
