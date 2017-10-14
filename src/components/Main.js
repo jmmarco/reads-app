@@ -6,7 +6,11 @@ import Home from './Home'
 import AddPostForm from './AddPostForm'
 // import AddCommentForm from './AddCommentForm'
 
+
+
 class Main extends Component {
+
+
   render() {
     const posts = this.props.posts
     const categories = this.props.categories
@@ -15,9 +19,13 @@ class Main extends Component {
     return(
 
         <main className="content">
+
           <Route exact path={`/`} component={Home}/>
 
+
           <Route exact path={`/posts/new`} component={AddPostForm}/>
+
+
 
 
           { posts && (
