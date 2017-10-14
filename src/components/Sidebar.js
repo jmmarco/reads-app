@@ -3,14 +3,6 @@ import { Link } from 'react-router-dom'
 
 class Sidebar extends Component {
 
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
-      post: null,
-      isAdding: false
-    }
-  }
-
   render() {
 
     return (

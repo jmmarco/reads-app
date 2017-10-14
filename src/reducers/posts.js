@@ -6,7 +6,11 @@ import {
   POST_DOWNVOTE,
   UPDATE_POST_SUCCESS,
   REMOVE_POST_SUCCESS,
-  ADD_POST_SUCCESS
+  ADD_POST_SUCCESS,
+  SORT_POSTS_BY_DATE_ASC,
+  SORT_POSTS_BY_DATE_DSC,
+  SORT_POSTS_BY_SCORE_ASC,
+  SORT_POSTS_BY_SCORE_DSC
 } from '../actions/posts'
 
 // Remember a reducer takes in two things:
@@ -33,11 +37,11 @@ export function postsIsLoading(state = false, action) {
 
 export function posts(state = [], action) {
 
-  // object destructuring from action
-  const { id } = action
+  let _ = require('lodash')
+  let sortedPosts = null
 
-  // console.log(action)
-  // console.log(id, voteScore)
+  // object destructuring from action
+  const { id,  posts } = action
 
   // Declare some helper variables
   let postToUpdate, stateWithoutPost, score
@@ -67,25 +71,10 @@ export function posts(state = [], action) {
         ...stateWithoutPost
       ]
     case UPDATE_POST_SUCCESS:
-      console.log("Payload is:", action)
-      console.log(
-        "HEllo",
-        // ...state.find((post) => post.id === id),
-      )
-      console.log(
-        "hello below is: ",
-        ...state.filter((post) => post.id !== id ),
-        "hello above is: ",
-        // Object.assign({}, action.post)
-
-      )
       return [
         ...state.filter((post) => post.id !== id ),
-        // Object.assign({}, action.post)
       ]
     case REMOVE_POST_SUCCESS:
-      console.log("Payload is: ", action)
-
       console.log(
         ...state.filter((post) => post.id !== id )
       )
@@ -96,18 +85,16 @@ export function posts(state = [], action) {
       return [
         ...state.concat(action.post)
       ]
+    case SORT_POSTS_BY_DATE_ASC:
+        return sortedPosts = _.orderBy(posts, 'timestamp', 'asc')
+    case SORT_POSTS_BY_DATE_DSC:
+      console.log("Sort posts by date dsc reducer")
+        return sortedPosts = _.orderBy(posts, 'timestamp', 'dsc').reverse()
+    case SORT_POSTS_BY_SCORE_ASC:
+        return sortedPosts = _.orderBy(posts, 'voteScore', 'asc')
+    case SORT_POSTS_BY_SCORE_DSC:
+      return sortedPosts = _.orderBy(posts, 'voteScore', 'dsc').reverse()
     default:
       return state
   }
 }
-
-// export function voteScore(state= [], action) {
-//   switch (action.type) {
-//     case POST_UPVOTE:
-//       return {...state, voteScore: action.voteScore}
-//     case POST_DOWNVOTE:
-//       return {...state, voteScore: action.voteScore}
-//     default:
-//       return state
-//   }
-// }

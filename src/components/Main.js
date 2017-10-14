@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import Category from './Category'
 import Post from './Post'
-import Home from './Home'
 import AddPostForm from './AddPostForm'
 // import AddCommentForm from './AddCommentForm'
 
@@ -20,10 +19,18 @@ class Main extends Component {
 
         <main className="content">
 
-          <Route exact path={`/`} component={Home}/>
+          <Route exact={true} path={`/`} render={() => (
+            <div>
+              <h2>Welcome</h2>
+              <p>
+                To get started choose from any of the posts or
+                categories on the left sidebar..
+              </p>
+            </div>
+          )}/>
 
 
-          <Route exact path={`/posts/new`} component={AddPostForm}/>
+          <Route exact={true} path={`/posts/new`} component={AddPostForm}/>
 
 
 

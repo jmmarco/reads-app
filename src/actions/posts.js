@@ -8,6 +8,10 @@ export const POST_DOWNVOTE = 'POST_DOWNVOTE'
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
 export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS'
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS'
+export const SORT_POSTS_BY_DATE_ASC = 'SORT_POSTS_BY_DATE_ASC'
+export const SORT_POSTS_BY_DATE_DSC = 'SORT_POSTS_BY_DATE_DSC'
+export const SORT_POSTS_BY_SCORE_ASC = 'SORT_POSTS_BY_SCORE_ASC'
+export const SORT_POSTS_BY_SCORE_DSC = 'SORT_POSTS_BY_SCORE_DSC'
 
 const uuid = require('uuid/v1')
 
@@ -74,7 +78,33 @@ export function addPostSuccess(post) {
   }
 }
 
+export function sortPostsByDateAsc(posts) {
+  return {
+    type: SORT_POSTS_BY_DATE_ASC,
+    posts
+  }
+}
 
+export function sortPostsByDateDsc(posts) {
+  return {
+    type: SORT_POSTS_BY_DATE_DSC,
+    posts
+  }
+}
+
+export function sortPostsByScoreAsc(posts) {
+  return {
+    type: SORT_POSTS_BY_SCORE_ASC,
+    posts
+  }
+}
+
+export function sortPostsByScoreDsc(posts) {
+  return {
+    type: SORT_POSTS_BY_SCORE_DSC,
+    posts
+  }
+}
 
 // End of action creators
 

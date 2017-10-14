@@ -1,67 +1,61 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import {
+  sortPostsByDateAsc,
+  sortPostsByDateDsc,
+  sortPostsByScoreAsc,
+  sortPostsByScoreDsc
+ } from '../actions/posts'
 
 class Category extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      posts: null,
-      order: true,
+      order: false
     }
 
-    this.toggleSort = this.toggleSort.bind(this)
-  }
 
-  componentWillReceiveProps() {
-    this.setState({
-      posts: this.props.posts
-    })
   }
 
 
-  toggleSort(type) {
-    let posts = this.state.posts
-    let _ = require('lodash')
+  toggleSort(option) {
+    console.log("Option is :", option)
+    const { order } = this.state
+    const { posts } = this.props
 
-
-
-    let sortedPosts = null
-
-    if (type === 'score') {
-      switch (this.state.order) {
-        case true:
-        sortedPosts = _.orderBy(posts, 'voteScore', 'asc')
-        this.setState({ order: false  })
-        break
-        default:
-        sortedPosts = _.orderBy(posts, 'voteScore', 'desc')
-        this.setState({ order: true })
-      }
+    if (!order && option === 'date') {
+      console.log("order false, option 'date'")
+      this.setState({ order: true })
+      this.props.sortPostsByDateAsc(posts)
     }
 
-    if (type === 'date') {
-      switch (this.state.order) {
-        case true:
-        sortedPosts = _.orderBy(posts, 'timestamp', 'asc')
-        this.setState({ order: false  })
-        break
-        default:
-        sortedPosts = _.orderBy(posts, 'timestamp', 'desc')
-        this.setState({ order: true })
-      }
+    if (order && option === 'date') {
+      console.log("order true, option 'date'")
+      this.setState({ order: false })
+      this.props.sortPostsByDateDsc(posts)
     }
 
-    // Finally, set the state
-    this.setState({
-      posts: sortedPosts
-    })
+    if (!order && option === 'score') {
+      console.log("order false, option 'score'")
+      this.setState({ order: true })
+      this.props.sortPostsByScoreAsc(posts)
+    }
+
+    if (order && option === 'score') {
+      console.log("order is true and option is 'score'")
+      this.setState({ order: false })
+      this.props.sortPostsByScoreDsc(posts)
+    }
+
   }
-
 
   render() {
-    const { category } = this.props
-    const posts = this.state.posts
+    // console.log(this.props)
+    // console.log(this.state)
+    const { category, posts } = this.props
+
 
     if (category !== undefined && posts !== null) {
       return (
@@ -69,12 +63,12 @@ class Category extends Component {
           <h2>These are all the posts in the {category.name} category</h2>
 
           <ul className="list">
-            { posts.map((p) => {
+            { posts.map((post, i) => {
               return (
-                <li key={p.id}>
-                  <Link to={`/posts/${p.id}`}>{p.title} </Link>
+                <li key={i}>
+                  <Link to={`/posts/${post.id}`}>{post.title} </Link>
 
-                  <span>- Score: {p.voteScore} | Date: {new Date(p.timestamp).toDateString()}</span>
+                  <span>- Score: {post.voteScore} | Date: {new Date(post.timestamp).toDateString()}</span>
                 </li>
               )
             })
@@ -100,4 +94,23 @@ class Category extends Component {
   }
 }
 
-export default Category
+const mapStateToProps = (state) => {
+  // console.log(state  )
+  return {
+    // Nothing for now
+    // posts: this.props
+  }
+}
+
+
+function mapDispatchToProps (dispatch) {
+  return {
+    sortPostsByDateAsc: (data) => dispatch(sortPostsByDateAsc(data)),
+    sortPostsByDateDsc: (data) => dispatch(sortPostsByDateDsc(data)),
+    sortPostsByScoreAsc: (data) => dispatch(sortPostsByScoreAsc(data)),
+    sortPostsByScoreDsc: (data) => dispatch(sortPostsByScoreDsc(data))
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category)
