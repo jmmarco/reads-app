@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { addPost } from '../actions/posts'
 
 class Sidebar extends Component {
 
@@ -11,18 +9,7 @@ class Sidebar extends Component {
       post: null,
       isAdding: false
     }
-
-    // this.handleAdd = this.handleAdd.bind(this)
   }
-
-
-  // handleAdd() {
-  //   alert("You clicked on add a new post")
-  //   this.props.addPost()
-  //   this.setState({
-  //     isAdding: true
-  //   })
-  // }
 
   render() {
 
@@ -61,18 +48,5 @@ class Sidebar extends Component {
     )
   }
 }
-
-// const mapStateToProps = (state) => {
-//   // console.log(state)
-//   return {
-//     posts: state.posts
-//   }
-// }
-
-// function mapDispatchToProps (dispatch) {
-//   return {
-//     addPost: (data) => dispatch(addPost(data))
-//   }
-// }
 
 export default Sidebar
