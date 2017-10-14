@@ -50,6 +50,7 @@ export function posts(state = [], action) {
     case POSTS_FETCH_SUCCESS:
       return action.posts
     case POST_UPVOTE:
+      // Thanks to Matt Boyle (React ND Slack) for the inspiration on how to handle the voting
       stateWithoutPost = state.filter((post) => post.id !== id )
       postToUpdate = state.find((post) => post.id === id)
 
