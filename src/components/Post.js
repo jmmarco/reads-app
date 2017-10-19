@@ -8,7 +8,6 @@ import { updatePost, downVote, upVote, deletePost } from '../actions/posts'
 import { fetchComments } from '../actions/comments'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
-// import EditPostForm from './EditPostForm'
 
 class Post extends Component {
 
@@ -17,10 +16,10 @@ class Post extends Component {
     this.state = {
       isEditing: false,
       isDeleted: false,
-      isAdding: true,
       value: '',
       post: null,
-      isAddingComment: false
+      isAddingComment: false,
+      commentsLoaded: false
     }
 
     this.toggleAddComment = this.toggleAddComment.bind(this)
@@ -31,16 +30,10 @@ class Post extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
-    this.setState({
-      post: nextProps.post
-    })
-
-    // Go and fetch the comment for this specific post
-    if (this.state.post !== null && this.state.post !== undefined) {
-      this.props.fetchComments(this.state.post.id)
+    if (this.props.post !== nextProps.post) {
+      this.setState({post: nextProps.post})
+      this.props.fetchComments(nextProps.post.id)
     }
-
 
   }
 
@@ -88,8 +81,7 @@ class Post extends Component {
 
 
   render() {
-    console.log("firing from Post component")
-    const { post } = this.props
+    const { post, comments } = this.props
 
     if (this.state.isEditing && post !== undefined) {
       return (
@@ -102,8 +94,8 @@ class Post extends Component {
       )
     }
 
-    if (post !== undefined) {
-
+    if (post !== undefined && post !== null) {
+      // console.log(post)
       return (
         <div className="post">
           <div className="post-body">
@@ -128,7 +120,7 @@ class Post extends Component {
           <div className="post-comments">
 
             { !this.state.isAddingComment && post && (
-              <Comment post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
+              <Comment  comments={comments} post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
             )}
 
             { this.state.isAddingComment && post && (
@@ -150,14 +142,6 @@ class Post extends Component {
       )
     }
 
-    if (this.state.isAdding) {
-      return (
-        <div>
-          {/* Empty on purpose because this will render the AddPostForm Component */}
-        </div>
-      )
-    }
-
     // If no post is found just fill in with some text
     return (
       <div>
@@ -170,10 +154,10 @@ class Post extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state, ownProps)
   return {
     posts: state.posts,
-    post: ownProps.post,
-    // commments: state.comments
+    comments: state.comments,
   }
 }
 

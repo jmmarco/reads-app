@@ -3,8 +3,6 @@ import { Route } from 'react-router-dom'
 import Category from './Category'
 import Post from './Post'
 import AddPostForm from './AddPostForm'
-// import AddCommentForm from './AddCommentForm'
-
 
 
 class Main extends Component {
@@ -37,7 +35,9 @@ class Main extends Component {
 
           { posts && (
             <Route exact path={`/posts/:postId`} render={({ match }) => (
+              
               <Post post={posts.find(p => p.id === match.params.postId )}/>
+
             )}/>
           )}
 
