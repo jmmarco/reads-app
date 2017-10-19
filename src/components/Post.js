@@ -30,7 +30,7 @@ class Post extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.post !== nextProps.post) {
+    if (this.props.post !== nextProps.post && nextProps.post !== undefined) {
       this.setState({post: nextProps.post})
       this.props.fetchComments(nextProps.post.id)
     }
