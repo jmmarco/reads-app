@@ -13,18 +13,12 @@ class Comment extends Component {
     super(props)
     this.state = {
       isEditing: false,
-      comment: null
     }
 
 
     this.toggleEdit = this.toggleEdit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  componentDidMount() {
-    const { post } = this.props
-    this.props.fetchComments(post.id)
   }
 
   toggleEdit(comment) {
@@ -56,9 +50,15 @@ class Comment extends Component {
 
 
   render() {
-
-    const { comments } = this.props
+    console.log(this.props)
+    const { comments, post } = this.props
     const { comment } = this.state
+
+    let commentsToDisplay = comments.filter((comment) => {
+      if (comment.parentId === post.id ) {
+        return comment
+      }
+    })
 
     if (this.state.isEditing && comment !== null) {
       return (
@@ -66,10 +66,11 @@ class Comment extends Component {
         )
     }
 
-    if (this.props.comments) {
+    if (commentsToDisplay.length > 0) {
+      // console.log(this.props.comments)
       return (
         <div>
-          <h3>Comments</h3>
+          <h3>Comments: {this.props.comments.length}</h3>
           <ul className="list comments-box">
             { comments.map((comment, i) => {
               return (
@@ -102,18 +103,22 @@ class Comment extends Component {
       )
     }
 
-    if (this.props.comments === undefined) {
+
+
       return (
         <div>
-          Sorry, no comments for this post yet!
+          <p>Sorry, no comments for this post yet!</p>
+          <button className="button-comment" onClick={this.props.toggleAddComment}>Add Comment</button>
         </div>
+
       )
-    }
+
 
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     comments: state.comments
   }
