@@ -77,7 +77,11 @@ export function fetchComments(id) {
 export function upVote(comment) {
   return (dispatch) => {
     fetch(`${api}/comments/${comment.id}`, {
-      headers
+      headers,
+      method: 'POST',
+      body: JSON.stringify({
+           option: "upVote"
+         })
     })
     .then((response) => {
       return response.json()
@@ -95,7 +99,11 @@ export function upVote(comment) {
 export function downVote(comment) {
   return (dispatch) => {
     fetch(`${api}/comments/${comment.id}`, {
-      headers
+      headers,
+      method: 'POST',
+      body: JSON.stringify({
+           option: "downVote"
+         })
     })
     .then((response) => {
       return response.json()
