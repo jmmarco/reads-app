@@ -1,28 +1,38 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { fetchComments } from '../actions/comments'
+import { connect } from 'react-redux'
 
 class Sidebar extends Component {
+
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(nextProps)
+  //   this.props.fetchComments(nextProps.post.id)
+  // }
 
   render() {
 
     return (
 
       <aside className="sidebar">
-        <h2>Posts Listing</h2>
-        <ul className="list">
+        {/* <h2>Posts Listing</h2>
+          <ul className="list">
           {this.props.posts.map((post, i) => {
             return (
-              <li key={i}>
+          <li key={i}>
 
-                <Link to={`/posts/${post.id}`}>{post.title}</Link>
+          <Link to={`/posts/${post.id}`}>{post.title}</Link>
 
-              </li>
+          <SideBarPost post={post}/>
+
+          </li>
             )
 
           })}
-        </ul>
+          </ul>
+          <Link className="add-post-button" to={`/posts/new`}>Add post</Link>
+        <hr/> */}
         <Link className="add-post-button" to={`/posts/new`}>Add post</Link>
-        <hr/>
         <h2>Categories Listing</h2>
         <ul className="list">
           {this.props.categories.map((category, i) => {
@@ -40,4 +50,10 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar
+function mapDispatchToProps (dispatch) {
+  return {
+    fetchComments: (data) => dispatch(fetchComments(data))
+  }
+}
+
+export default connect(mapDispatchToProps)(Sidebar)

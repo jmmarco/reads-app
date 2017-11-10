@@ -30,7 +30,7 @@ class App extends Component {
       <div className="app">
 
         <Header/>
-        <Sidebar posts={this.props.posts} categories={this.props.categories}/>
+        <Sidebar posts={this.props.posts} categories={this.props.categories} comments={this.props.comments}/>
         <Main posts={this.props.posts} categories={this.props.categories}/>
 
       </div>

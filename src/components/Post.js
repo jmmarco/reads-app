@@ -8,6 +8,8 @@ import { updatePost, downVote, upVote, deletePost } from '../actions/posts'
 import { fetchComments } from '../actions/comments'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
+import Edit from 'react-icons/lib/fa/edit'
+import Trash from 'react-icons/lib/fa/trash'
 
 class Post extends Component {
 
@@ -19,7 +21,8 @@ class Post extends Component {
       value: '',
       post: null,
       isAddingComment: false,
-      commentsLoaded: false
+      commentsLoaded: false,
+      comments: [],
     }
 
     this.toggleAddComment = this.toggleAddComment.bind(this)
@@ -29,13 +32,36 @@ class Post extends Component {
     this.handleRemove = this.handleRemove.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.post !== nextProps.post && nextProps.post !== undefined) {
-      this.setState({post: nextProps.post})
-      this.props.fetchComments(nextProps.post.id)
-    }
+  // componentWillMount() {
+  //   console.log("inside component will Mount")
+  //   if (this.props.post !== undefined) {
+  //     console.log("Setting state")
+  //     this.setState({
+  //       post: this.props.post
+  //     })
+  //   }
+  //   // console.log("This dot props", this.props)
+  //   // this.props.fetchComments(this.props.post.id)
+  // }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      post: nextProps.post
+    })
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("Inside shouldComponentUpdate")
+    console.log(nextProps, nextState)
+    this.props.fetchComments(nextProps.post.id)
+    return true
+    // if (this.props.post.id !== this.state.post.id) {
+    //   this.props.fetchComments(this.props.post.id)
+    //   return true
+    // }
+  }
+
+
 
   toggleAddComment() {
     this.setState({
@@ -81,8 +107,15 @@ class Post extends Component {
 
 
   render() {
-    const { post, comments } = this.props
+    const { post } = this.props
+    // console.log("Comments from state looks like :", this.state.comments)
+    const { comments } = this.props
 
+    let filteredComments = comments.filter(comment => comment.parentId === post.id)
+    // console.log("Filtered comments look like", filteredComments)
+
+    // console.log("Comments from props is: ", comments)
+    // console.log("This dot props looks like: ", this.props)
     if (this.state.isEditing && post !== undefined) {
       return (
 
@@ -94,7 +127,7 @@ class Post extends Component {
       )
     }
 
-    if (post !== undefined && post !== null) {
+    if (post !== undefined && post !== null ) {
       // console.log(post)
       return (
         <div className="post">
@@ -103,13 +136,12 @@ class Post extends Component {
             <h3>Posted in category: <Link to={`/categories/${post.category}`}>{post.category}</Link></h3>
             <p>{post.body}</p>
 
-            <hr/>
             <p>Written by: <a href="">{post.author}</a> on: {new Date(post.timestamp).toLocaleString()}</p>
             <p>Score: {post.voteScore}</p>
 
             <div className="controls">
-              <button onClick={this.toggleEdit}>Edit</button>
-              <button onClick={this.handleRemove}>Remove</button>
+              <button onClick={this.toggleEdit}><Edit size={30}/></button>
+              <button onClick={this.handleRemove}><Trash size={30}/></button>
               <span className="vote-control">
                 <button onClick={() => this.props.upVote(post)}><ArrowUp size={30}/></button>
                 <button onClick={() => this.props.downVote(post)}><ArrowDown size={30}/></button>
@@ -118,9 +150,10 @@ class Post extends Component {
           </div>
 
           <div className="post-comments">
+            { filteredComments.length > 0 ? JSON.stringify(comments) : JSON.stringify("WHAAATTT") }
 
-            { !this.state.isAddingComment && post && (
-              <Comment  comments={comments} post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
+            { !this.state.isAddingComment && post && filteredComments.length > 0 && (
+              <Comment  comments={filteredComments} post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
             )}
 
             { this.state.isAddingComment && post && (
@@ -128,7 +161,7 @@ class Post extends Component {
             )}
 
           </div>
-
+          <hr/>
 
         </div>
       )
@@ -154,7 +187,7 @@ class Post extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state, ownProps)
+  // console.log(state, ownProps)
   return {
     posts: state.posts,
     comments: state.comments,

@@ -50,13 +50,15 @@ class Comment extends Component {
 
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     const { comments, post } = this.props
     const { comment } = this.state
 
     let commentsToDisplay = comments.filter((comment) => {
       if (comment.parentId === post.id ) {
         return comment
+      } else {
+        return "no comment"
       }
     })
 
@@ -118,7 +120,7 @@ class Comment extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  // console.log(state)
   return {
     comments: state.comments
   }

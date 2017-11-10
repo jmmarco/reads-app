@@ -19,11 +19,17 @@ class Main extends Component {
 
           <Route exact={true} path={`/`} render={() => (
             <div>
-              <h2>Welcome</h2>
-              <p>
-                To get started choose from any of the posts or
-                categories on the left sidebar..
-              </p>
+              
+
+              { posts.map((post, i) => {
+                return (
+                  <Post key={i} post={post}/>
+
+                )
+              })}
+
+
+
             </div>
           )}/>
 
@@ -35,7 +41,7 @@ class Main extends Component {
 
           { posts && (
             <Route exact path={`/posts/:postId`} render={({ match }) => (
-              
+
               <Post post={posts.find(p => p.id === match.params.postId )}/>
 
             )}/>
