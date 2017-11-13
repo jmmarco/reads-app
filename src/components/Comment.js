@@ -13,6 +13,7 @@ class Comment extends Component {
     super(props)
     this.state = {
       isEditing: false,
+      comment: null,
     }
 
 
@@ -54,58 +55,49 @@ class Comment extends Component {
     const { comments, post } = this.props
     const { comment } = this.state
 
-    let commentsToDisplay = comments.filter((comment) => {
-      if (comment.parentId === post.id ) {
-        return comment
-      } else {
-        return "no comment"
-      }
-    })
-
     if (this.state.isEditing && comment !== null) {
       return (
         <EditCommentForm comment={this.state.comment} handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} toggleEdit={this.toggleEdit.bind(this)}/>
         )
     }
 
-    if (commentsToDisplay.length > 0) {
+
       // console.log(this.props.comments)
+    if (this.props.comments.length > 0) {
       return (
-        <div>
-          <h3>Comments: {this.props.comments.length}</h3>
-          <ul className="list comments-box">
-            { comments.map((comment, i) => {
-              return (
-                <li key={i} className="comment">
-                  <p>{comment.body}</p>
-                  <p>Score: {comment.voteScore} | Date: {new Date(comment.timestamp).toDateString()}</p>
-                  <p>By: {comment.author}</p>
-                  <div className="comment-control">
-                    <button onClick={() => this.props.deleteComment(comment)}>
-                      <Trash size={25}/>
-                    </button>
-                    <button onClick={() => this.toggleEdit(comment)}>
-                      <Edit size={25}/>
-                    </button>
-                    <button
-                      onClick={() => this.props.upVote(comment)}>
-                      <ArrowUp size={25}/>
-                    </button>
-                    <button
-                      onClick={() => this.props.downVote(comment)}>
-                      <ArrowDown size={25}/>
-                    </button>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-          <button className="button-comment" onClick={this.props.toggleAddComment}>Add Comment</button>
-        </div>
-      )
+          <div>
+            <h3>Comments: {this.props.comments.length}</h3>
+            <ul className="list comments-box">
+              { comments.map((comment, i) => {
+                return (
+                  <li key={i} className="comment">
+                    <p>{comment.body}</p>
+                    <p>Score: {comment.voteScore} | Date: {new Date(comment.timestamp).toDateString()}</p>
+                    <p>By: {comment.author}</p>
+                    <div className="comment-control">
+                      <button onClick={() => this.props.deleteComment(comment)}>
+                        <Trash size={25}/>
+                      </button>
+                      <button onClick={() => this.toggleEdit(comment)}>
+                        <Edit size={25}/>
+                      </button>
+                      <button
+                        onClick={() => this.props.upVote(comment)}>
+                        <ArrowUp size={25}/>
+                      </button>
+                      <button
+                        onClick={() => this.props.downVote(comment)}>
+                        <ArrowDown size={25}/>
+                      </button>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+            <button className="button-comment" onClick={this.props.toggleAddComment}>Add Comment</button>
+          </div>
+        )
     }
-
-
 
       return (
         <div>
