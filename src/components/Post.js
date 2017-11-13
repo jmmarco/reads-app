@@ -32,36 +32,21 @@ class Post extends Component {
     this.handleRemove = this.handleRemove.bind(this)
   }
 
-  // componentWillMount() {
-  //   console.log("inside component will Mount")
-  //   if (this.props.post !== undefined) {
-  //     console.log("Setting state")
-  //     this.setState({
-  //       post: this.props.post
-  //     })
-  //   }
-  //   // console.log("This dot props", this.props)
-  //   // this.props.fetchComments(this.props.post.id)
-  // }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      post: nextProps.post
-    })
+  componentDidMount() {
+    if (this.props.post !== undefined) {
+      // console.warn("Firing fetch comments..")
+      // console.log(this.props.post)
+      this.props.fetchComments(this.props.post.id)
+    }
+
+    if (this.props.comments.length > 0 ) {
+      console.log("What does comments from Redux look like")
+      console.log(this.props.comments)
+    }
+
+
   }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("Inside shouldComponentUpdate")
-    console.log(nextProps, nextState)
-    this.props.fetchComments(nextProps.post.id)
-    return true
-    // if (this.props.post.id !== this.state.post.id) {
-    //   this.props.fetchComments(this.props.post.id)
-    //   return true
-    // }
-  }
-
-
 
   toggleAddComment() {
     this.setState({
@@ -108,14 +93,16 @@ class Post extends Component {
 
   render() {
     const { post } = this.props
-    // console.log("Comments from state looks like :", this.state.comments)
     const { comments } = this.props
 
-    let filteredComments = comments.filter(comment => comment.parentId === post.id)
-    // console.log("Filtered comments look like", filteredComments)
 
-    // console.log("Comments from props is: ", comments)
-    // console.log("This dot props looks like: ", this.props)
+
+      const filteredComments = comments.filter((comment) => post.id === comment.parentId)
+      // console.log("Filtered comments is: ", filteredComments)
+      // console.log()
+
+
+
     if (this.state.isEditing && post !== undefined) {
       return (
 
@@ -150,9 +137,9 @@ class Post extends Component {
           </div>
 
           <div className="post-comments">
-            { filteredComments.length > 0 ? JSON.stringify(comments) : JSON.stringify("WHAAATTT") }
-
-            { !this.state.isAddingComment && post && filteredComments.length > 0 && (
+            {/* { comments.length > 0 ? JSON.stringify(comments) : JSON.stringify(this.state.isAddingComment) } */}
+            {JSON.stringify(filteredComments)}
+            { !this.state.isAddingComment && post && (
               <Comment  comments={filteredComments} post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
             )}
 
@@ -187,7 +174,8 @@ class Post extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log(state, ownProps)
+  // console.log(state)
+
   return {
     posts: state.posts,
     comments: state.comments,
