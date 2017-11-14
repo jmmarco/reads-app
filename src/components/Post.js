@@ -35,18 +35,19 @@ class Post extends Component {
 
   componentDidMount() {
     if (this.props.post !== undefined) {
-      // console.warn("Firing fetch comments..")
-      // console.log(this.props.post)
+      console.log("Firing fetch comments..")
       this.props.fetchComments(this.props.post.id)
     }
-
-    if (this.props.comments.length > 0 ) {
-      console.log("What does comments from Redux look like")
-      console.log(this.props.comments)
-    }
-
+    this.setState({comments: this.state.comments})
+    console.log(this.state.comments)
 
   }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.comments)
+    this.setState({comments: nextProps.comment})
+  }
+
 
   toggleAddComment() {
     this.setState({
@@ -95,9 +96,7 @@ class Post extends Component {
     const { post } = this.props
     const { comments } = this.props
 
-
-
-      const filteredComments = comments.filter((comment) => post.id === comment.parentId)
+      // const filteredComments = comments.filter((comment) => post.id === comment.parentId)
       // console.log("Filtered comments is: ", filteredComments)
       // console.log()
 
@@ -138,9 +137,9 @@ class Post extends Component {
 
           <div className="post-comments">
             {/* { comments.length > 0 ? JSON.stringify(comments) : JSON.stringify(this.state.isAddingComment) } */}
-            {JSON.stringify(filteredComments)}
+            {/* {JSON.stringify(comments)} */}
             { !this.state.isAddingComment && post && (
-              <Comment  comments={filteredComments} post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
+              <Comment  comments={comments} post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
             )}
 
             { this.state.isAddingComment && post && (

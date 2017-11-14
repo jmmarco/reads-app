@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { fetchPosts} from './actions/posts'
 import { fetchCategories } from './actions/categories'
+import { fetchComments } from './actions/comments'
 import { connect } from 'react-redux'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
@@ -14,6 +15,7 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchPosts()
     this.props.fetchCategories()
+
   }
 
 
@@ -47,13 +49,15 @@ const mapStateToProps = (state) => {
     hasError: state.postsHasError,
     isLoading: state.postsIsLoading,
     categories: state.categories,
+    comments: state.comments
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     fetchPosts: (url) => dispatch(fetchPosts(url)),
-    fetchCategories: (url) => dispatch(fetchCategories(url))
+    fetchCategories: (url) => dispatch(fetchCategories(url)),
+    fetchComments: (data) => dispatch(fetchComments(data))
   }
 }
 
