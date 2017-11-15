@@ -57,7 +57,6 @@ export function updateCommentSuccess(comment) {
 
 // API Stuff
 export function fetchComments(id) {
-  console.log("Fetching Comments!")
   return (dispatch) => {
     fetch(`${api}/posts/${id}/comments`, {
       headers,
