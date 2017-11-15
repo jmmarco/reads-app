@@ -38,7 +38,7 @@ export function postsIsLoading(state = false, action) {
 export function posts(state = [], action) {
 
   let _ = require('lodash')
-  let sortedPosts = null
+  let sortedPosts = []
 
   // object destructuring from action
   const { id,  posts } = action
@@ -75,6 +75,7 @@ export function posts(state = [], action) {
         ...state.filter((post) => post.id !== id ),
       ]
     case REMOVE_POST_SUCCESS:
+      // console.log(...state.filter((post) => post.id !== id))
       return [
         ...state.filter((post) => post.id !== id )
       ]
