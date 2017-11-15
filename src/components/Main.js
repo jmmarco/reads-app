@@ -34,13 +34,13 @@ class Main extends Component {
           )}/>
 
 
-          <Route exact={true} path={`/posts/new`} component={AddPostForm}/>
+          <Route path={`/posts/new`} component={AddPostForm}/>
 
 
 
 
           { posts && (
-            <Route exact path={`/posts/:postId`} render={({ match }) => (
+            <Route path={`/posts/:postId`} render={({ match }) => (
 
               <Post post={posts.find(p => p.id === match.params.postId )}/>
 
@@ -48,7 +48,7 @@ class Main extends Component {
           )}
 
           { posts && categories && (
-            <Route exact path={`/:categoryName/posts`} render={({ match }) => (
+            <Route path={`/:categoryName/posts`} render={({ match }) => (
               <Category
                 category={categories.find(c => c.name === match.params.categoryName)}
                 posts={posts.filter(p => p.category === match.params.categoryName )}
