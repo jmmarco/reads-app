@@ -17,7 +17,6 @@ export function comments (state = [], action) {
 
   switch (action.type) {
     case COMMENTS_FETCH_SUCCESS:
-      console.log("After fetching the comments in the reducer: ", action.comments)
       return [
         ...state, ...action.comments
       ]
