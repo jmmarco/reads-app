@@ -83,14 +83,26 @@ export function posts(state = [], action) {
       return [
         ...state.concat(action.post)
       ]
-    case SORT_POSTS_BY_DATE_ASC:
-        return sortedPosts = _.orderBy(posts, 'timestamp', 'asc')
-    case SORT_POSTS_BY_DATE_DSC:
-        return sortedPosts = _.orderBy(posts, 'timestamp', 'dsc').reverse()
-    case SORT_POSTS_BY_SCORE_ASC:
-        return sortedPosts = _.orderBy(posts, 'voteScore', 'asc')
-    case SORT_POSTS_BY_SCORE_DSC:
-      return sortedPosts = _.orderBy(posts, 'voteScore', 'dsc').reverse()
+      case SORT_POSTS_BY_DATE_ASC:
+        console.log('order by date ascending.. ',_.orderBy(posts, ['timestamp'], ['asc']))
+        return [...state,
+          _.orderBy(posts, ['timestamp'], ['asc'])
+        ]
+      case SORT_POSTS_BY_DATE_DSC:
+        console.log('order by date descending.. ', _.orderBy(posts, ['timestamp'], ['dsc']))
+        return [...state,
+          _.orderBy(posts, ['timestamp'], ['dsc'])
+        ].reverse()
+      case SORT_POSTS_BY_SCORE_ASC:
+        console.log(_.orderBy(posts, ['voteScore'], ['asc']))
+        return [...state,
+          _.orderBy(posts, ['voteScore'], ['asc'])
+        ]
+      case SORT_POSTS_BY_SCORE_DSC:
+        console.log(_.orderBy(posts, ['voteScore'], ['dsc']))
+        return [...state,
+          _.orderBy(posts, ['voteScore'], ['dsc'])
+        ].reverse()
     default:
       return state
   }
