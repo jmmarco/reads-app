@@ -124,7 +124,6 @@ button:active {
 .link-button {
   border: 0;
   display: block;
-  text-decoration: none;
   margin: 5px;
   text-transform: uppercase;
   background: deepskyblue;
