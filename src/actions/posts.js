@@ -1,4 +1,5 @@
 import { api, headers } from '../utils/ReadbleAPI'
+import { commentsFetchSuccess } from './comments'
 
 export const POSTS_HAS_ERROR = 'POSTS_HAS_ERROR'
 export const POSTS_IS_LOADING = 'POSTS_IS_LOADING'
@@ -126,7 +127,27 @@ export function fetchPosts() {
         return json
       })
       // Dispatch the the fetch success action
-      .then((posts) => dispatch(postsFetchSuccess(posts)))
+      // Also get the comments for each specific post
+      // This is a bter messy, but works for now
+      // TODO: Figure out best way to refactor all this
+      .then((posts) => {
+        posts.forEach((post) => {
+          const { id } = post
+          fetch(`${api}/posts/${id}/comments`, {
+            headers,
+            method: 'GET'
+          })
+          .then((response) => {
+            return response.json()
+          })
+          .then((comments) => {
+            dispatch(commentsFetchSuccess(comments))
+          })
+
+        })
+
+        dispatch(postsFetchSuccess(posts))
+      })
       .catch((error) => {
         // If something goes wrong dispatch the error action
         dispatch(postsHasError(true))
@@ -206,6 +227,7 @@ export function updatePost(post) {
 
 
 export function deletePost(post) {
+  console.log(post)
   return (dispatch) => {
     fetch(`${api}/posts/${post.id}`, {
       headers,
@@ -215,6 +237,7 @@ export function deletePost(post) {
       return response
     })
     .then((response) => {
+      console.log(response)
       dispatch(removePostSuccess(post.id))
     })
     .catch((error) => {
