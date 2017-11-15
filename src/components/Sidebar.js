@@ -15,23 +15,6 @@ class Sidebar extends Component {
     return (
 
       <aside className="sidebar">
-        {/* <h2>Posts Listing</h2>
-          <ul className="list">
-          {this.props.posts.map((post, i) => {
-            return (
-          <li key={i}>
-
-          <Link to={`/posts/${post.id}`}>{post.title}</Link>
-
-          <SideBarPost post={post}/>
-
-          </li>
-            )
-
-          })}
-          </ul>
-          <Link className="add-post-button" to={`/posts/new`}>Add post</Link>
-        <hr/> */}
         <Link className="add-post-button" to={`/posts/new`}>Add post</Link>
         <h2>Categories Listing</h2>
         <ul className="list">
