@@ -5,7 +5,6 @@ import Comment from './Comment'
 import AddCommentForm from './AddCommentForm'
 import EditPostForm from './EditPostForm'
 import { updatePost, downVote, upVote, deletePost } from '../actions/posts'
-import { fetchComments } from '../actions/comments'
 import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
 import Edit from 'react-icons/lib/fa/edit'
@@ -32,20 +31,11 @@ class Post extends Component {
     this.handleRemove = this.handleRemove.bind(this)
   }
 
-
-  componentDidMount() {
-    if (this.props.post !== undefined) {
-      console.log("Firing fetch comments..")
-      this.props.fetchComments(this.props.post.id)
-    }
-    this.setState({comments: this.state.comments})
-    console.log(this.state.comments)
-
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.comments)
-    this.setState({comments: nextProps.comment})
+  componentWillMount() {
+    // console.log(this.props.post)
+    this.setState({
+      post: this.props.post
+    })
   }
 
 
@@ -83,6 +73,7 @@ class Post extends Component {
 
   handleRemove(event) {
     // Make call to action here
+    console.log(this.state.post)
     this.props.deletePost(this.state.post)
     this.setState({
       isDeleted: true
@@ -95,11 +86,6 @@ class Post extends Component {
   render() {
     const { post } = this.props
     const { comments } = this.props
-
-      // const filteredComments = comments.filter((comment) => post.id === comment.parentId)
-      // console.log("Filtered comments is: ", filteredComments)
-      // console.log()
-
 
 
     if (this.state.isEditing && post !== undefined) {
@@ -136,10 +122,9 @@ class Post extends Component {
           </div>
 
           <div className="post-comments">
-            {/* { comments.length > 0 ? JSON.stringify(comments) : JSON.stringify(this.state.isAddingComment) } */}
-            {/* {JSON.stringify(comments)} */}
+
             { !this.state.isAddingComment && post && (
-              <Comment  comments={comments} post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
+              <Comment comments={comments}  post={post} toggleAddComment={this.toggleAddComment.bind(this)}/>
             )}
 
             { this.state.isAddingComment && post && (
@@ -186,8 +171,7 @@ function mapDispatchToProps (dispatch) {
     upVote: (data) => dispatch(upVote(data)),
     downVote: (data) => dispatch(downVote(data)),
     updatePost: (data) => dispatch(updatePost(data)),
-    deletePost: (data) => dispatch(deletePost(data)),
-    fetchComments: (data) => dispatch(fetchComments(data))
+    deletePost: (data) => dispatch(deletePost(data))
 
   }
 }
