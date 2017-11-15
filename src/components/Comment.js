@@ -53,7 +53,11 @@ class Comment extends Component {
   render() {
     // console.log(this.props)
     const { comments, post } = this.props
+    // console.log(this.props)
     const { comment } = this.state
+
+    const filteredComments = comments.filter((comment) => post.id === comment.parentId)
+
 
     if (this.state.isEditing && comment !== null) {
       return (
@@ -62,13 +66,13 @@ class Comment extends Component {
     }
 
 
-      // console.log(this.props.comments)
-    if (this.props.comments.length > 0) {
+    // console.log(this.props.comments)
+    if (filteredComments.length > 0) {
       return (
           <div>
-            <h3>Comments: {this.props.comments.length}</h3>
+            <h3>Comments: {filteredComments.length}</h3>
             <ul className="list comments-box">
-              { comments.map((comment, i) => {
+              { filteredComments.map((comment, i) => {
                 return (
                   <li key={i} className="comment">
                     <p>{comment.body}</p>
