@@ -18,8 +18,8 @@ export function comments (state = [], action) {
   switch (action.type) {
     case COMMENTS_FETCH_SUCCESS:
       console.log("After fetching the comments in the reducer: ", action.comments)
-      return comments = [
-        ...action.comments
+      return [
+        ...state, ...action.comments
       ]
     case COMMENT_UPVOTE:
       stateWithoutComment = state.filter((comment) => comment.id !== id )
