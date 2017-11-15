@@ -3,32 +3,15 @@ import { Route } from 'react-router-dom'
 import Category from './Category'
 import Post from './Post'
 import AddPostForm from './AddPostForm'
-import { fetchComments } from '../actions/comments'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 
 
 class Main extends Component {
-
-  // state = {
-  //   comments: []
-  // }
-  //
-  // componentWillReceiveProps() {
-  //   if (this.props.posts.length >  0) {
-  //     // console.log(this.props.posts)
-  //     const { posts } = this.props
-  //     console.log("fired")
-  //     posts.forEach((post) => this.props.fetchComments)
-  //   }
-  // }
-
 
 
   render() {
     const posts = this.props.posts
     const categories = this.props.categories
-
-
 
     return(
 
