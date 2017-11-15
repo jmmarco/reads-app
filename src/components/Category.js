@@ -51,7 +51,7 @@ class Category extends Component {
     const { category, posts } = this.props
 
 
-    if (category !== undefined && posts !== null) {
+    if (category !== undefined && posts !== undefined) {
       return (
         <div>
           <h2>These are all the posts in the {category.name} category</h2>
@@ -88,10 +88,11 @@ class Category extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  console.log(state)
+  console.log(ownProps)
   return {
-    // Nothing for now
-    // posts: this.props
+    posts: ownProps.posts
   }
 }
 
