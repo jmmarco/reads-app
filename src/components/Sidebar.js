@@ -5,11 +5,6 @@ import { connect } from 'react-redux'
 
 class Sidebar extends Component {
 
-  // componentWillReceiveProps(nextProps) {
-  //   console.log(nextProps)
-  //   this.props.fetchComments(nextProps.post.id)
-  // }
-
   render() {
 
     return (
@@ -22,7 +17,7 @@ class Sidebar extends Component {
 
             return (
               <li key={i}>
-                <Link to={`/${category.path}/posts`}>{category.name}</Link>
+                <Link to={`/${category.path}`}>{category.name}</Link>
               </li>
             )
           })}
