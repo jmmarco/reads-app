@@ -17,7 +17,9 @@ class Category extends Component {
             These are all the posts in the <span className="underline">{category.name}</span> category
           </h2>
           <hr/>
-          <SortPosts/>
+          {this.props.posts.length === 0 ? <p>Sorry no, posts for this category yet.</p>
+          : <SortPosts/>
+          }
           <ul className="list">
             { posts.map((post, i) => {
               return (

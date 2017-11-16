@@ -24,6 +24,8 @@ class Main extends Component {
               <hr/>
               <SortPosts/>
 
+
+
               { posts.map((post, i) => {
                 return (
                   <Post key={i} post={post}/>
