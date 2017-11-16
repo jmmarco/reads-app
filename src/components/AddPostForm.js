@@ -21,6 +21,7 @@ class AddPostForm extends Component {
     }
 
     this.updatePostState = this.updatePostState.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.savePost = this.savePost.bind(this)
   }
 
@@ -31,14 +32,22 @@ class AddPostForm extends Component {
 
     post[field] = event.target.value
 
-    return this.setState({ post: post })
+    this.setState({ post: post })
+  }
+
+  handleChange(event) {
+
+    const post = this.state.post
+    post['category'] = event.target.value
+
+    this.setState({
+      post: post  })
   }
 
 
   savePost(event) {
     const {history} =  this.props
     event.preventDefault()
-
     this.props.addPost(this.state.post, history)
     this.setState({
       saving: true
@@ -84,14 +93,12 @@ class AddPostForm extends Component {
           </label>
           <br/>
           <label>
-            Category:
-            <input
-              type="text"
-              name="category"
-              value={this.state.value}
-              placeholder="Enter a category for this post"
-              onChange={this.updatePostState}
-            />
+            Choose from an available category:
+            <select value={this.state.value} onChange={this.handleChange}>
+              <option value="react">react</option>
+              <option value="redux">redux</option>
+              <option defaultValue="udacity">udacity</option>
+            </select>
           </label>
           <br/>
           <button type="submit">Submit Post</button>
@@ -113,7 +120,5 @@ function mapDispatchToProps(dispatch) {
     addPost: (data, history) => dispatch(addPost(data, history))
   }
 }
-
-// export default withRouter(connect(null, { actionCreatorName })(ReactComponent));
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPostForm))
