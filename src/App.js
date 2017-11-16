@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import Main from './components/Main'
-import './App.css';
+import './App.css'
 
 
 
