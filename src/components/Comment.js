@@ -5,6 +5,7 @@ import ArrowUp from 'react-icons/lib/fa/arrow-circle-o-up'
 import ArrowDown from 'react-icons/lib/fa/arrow-circle-o-down'
 import Edit from 'react-icons/lib/fa/edit'
 import Trash from 'react-icons/lib/fa/trash'
+import FaPlus from 'react-icons/lib/fa/plus'
 import EditCommentForm from './EditCommentForm'
 
 class Comment extends Component {
@@ -51,9 +52,7 @@ class Comment extends Component {
 
 
   render() {
-    // console.log(this.props)
     const { comments, post } = this.props
-    // console.log(this.props)
     const { comment } = this.state
 
     const filteredComments = comments.filter((comment) => post.id === comment.parentId)
@@ -71,6 +70,8 @@ class Comment extends Component {
       return (
           <div>
             <h3>Comments: {filteredComments.length}</h3>
+
+
             <ul className="list comments-box">
               { filteredComments.map((comment, i) => {
                 return (
@@ -98,7 +99,11 @@ class Comment extends Component {
                 )
               })}
             </ul>
-            <button className="button-comment" onClick={this.props.toggleAddComment}>Add Comment</button>
+
+            <button className="button-comment" onClick={this.props.toggleAddComment}><FaPlus size={30}/></button>
+
+
+
           </div>
         )
     }
@@ -106,7 +111,7 @@ class Comment extends Component {
       return (
         <div>
           <p>Sorry, no comments for this post yet!</p>
-          <button className="button-comment" onClick={this.props.toggleAddComment}>Add Comment</button>
+          <button className="button-comment" onClick={this.props.toggleAddComment}><FaPlus size={30}/></button>
         </div>
 
       )
