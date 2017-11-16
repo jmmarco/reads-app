@@ -33,6 +33,10 @@ body, html {
   padding-left: 0;
 }
 
+.section-heading {
+ font-size: 2em;
+}
+
 .comments-box {
   border: 2px solid grey;
 }
@@ -158,4 +162,8 @@ button:active {
   background-color: lightskyblue;
   font-weight: 500;
   padding: 10px 20px;
+}
+
+.underline {
+  text-decoration: underline;
 }
