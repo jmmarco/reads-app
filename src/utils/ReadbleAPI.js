@@ -1,4 +1,4 @@
-export const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5001'
+export const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:3001'
 
 // Generate a unique token for storing the Posts data on the backend server
 let token = localStorage.token
