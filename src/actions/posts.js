@@ -108,8 +108,6 @@ export function sortPostsByScoreDsc(posts) {
 
 // End of action creators
 
-
-
 export function fetchPosts() {
   return (dispatch) => {
     fetch(`${api}/posts`, {headers})
