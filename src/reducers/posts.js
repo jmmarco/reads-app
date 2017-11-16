@@ -38,7 +38,6 @@ export function postsIsLoading(state = false, action) {
 export function posts(state = [], action) {
 
   let _ = require('lodash')
-  let sortedPosts = []
 
   // object destructuring from action
   const { id,  posts } = action
