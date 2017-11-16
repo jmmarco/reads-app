@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 import Category from './Category'
 import Post from './Post'
 import AddPostForm from './AddPostForm'
-// import { connect } from 'react-redux'
+import SortPosts from './SortPosts'
 
 
 class Main extends Component {
@@ -21,6 +21,8 @@ class Main extends Component {
             <div>
 
               <h2 className="section-heading">Posts List View</h2>
+              <hr/>
+              <SortPosts/>
 
               { posts.map((post, i) => {
                 return (
@@ -66,10 +68,5 @@ class Main extends Component {
 
 
 
-// function mapDispatchToProps (dispatch) {
-//   return {
-//     fetchComments: (data) => dispatch(fetchComments(data))
-//   }
-// }
 
 export default Main
