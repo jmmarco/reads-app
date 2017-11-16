@@ -14,9 +14,9 @@ class EditPostForm extends Component {
             <input
               type="text"
               name="title"
-              value={post.value}
+              value={post.title}
               onChange={handleChange}
-              placeholder={post.title}
+
             />
           </label>
           <label>
@@ -24,9 +24,9 @@ class EditPostForm extends Component {
             <input
               type="text"
               name="body"
-              value={post.value}
+              value={post.body}
               onChange={handleChange}
-              placeholder={post.body}
+
             />
           </label>
           <br/>

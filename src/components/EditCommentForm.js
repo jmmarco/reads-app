@@ -14,7 +14,7 @@ class EditCommentForm extends Component {
           <input
             type="text"
             name="body"
-            value={comment.value}
+            value={comment.body}
             onChange={handleChange}
             placeholder={comment.body}
           />
