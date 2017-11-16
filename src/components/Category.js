@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import Post from './Post'
 import {
   sortPostsByDateAsc,
   sortPostsByDateDsc,
@@ -54,24 +54,27 @@ class Category extends Component {
     if (category !== undefined && posts !== undefined) {
       return (
         <div>
-          <h2>These are all the posts in the {category.name} category</h2>
 
+          <h2 className="section-heading">
+            These are all the posts in the <span className="underline">{category.name}</span> category
+          </h2>
+
+          <button className="button-post" onClick={() => this.toggleSort('score')}>Sort by score</button>
+          <button className="button-post" onClick={() => this.toggleSort('date')}>Sort by date</button>
+
+          <hr/>
           <ul className="list">
             { posts.map((post, i) => {
               return (
                 <li key={i}>
-                  <Link to={`/posts/${post.id}`}>{post.title} </Link>
 
-                  <span>- Score: {post.voteScore} | Date: {new Date(post.timestamp).toDateString()}</span>
+                  <Post post={post} />
                 </li>
               )
             })
 
             }
           </ul>
-          <hr/>
-          <button className="button-post" onClick={() => this.toggleSort('score')}>Sort by score</button>
-          <button className="button-post" onClick={() => this.toggleSort('date')}>Sort by date</button>
 
         </div>
       )
@@ -89,8 +92,8 @@ class Category extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state)
-  console.log(ownProps)
+  // console.log(state)
+  // console.log(ownProps)
   return {
     posts: ownProps.posts
   }
