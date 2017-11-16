@@ -95,8 +95,7 @@ class AddPostForm extends Component {
           </label>
           <br/>
           <button type="submit">Submit Post</button>
-          {/* <button>Go Back</button> */}
-          <Link className="link-button " to="/">Go Back</Link>
+          <Link className="link-button" to="/">Go Back</Link>
         </form>
       </div>
     )
