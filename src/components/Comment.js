@@ -58,6 +58,7 @@ class Comment extends Component {
     const filteredComments = comments.filter((comment) => post.id === comment.parentId)
 
 
+
     if (this.state.isEditing && comment !== null) {
       return (
         <EditCommentForm comment={this.state.comment} handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} toggleEdit={this.toggleEdit.bind(this)}/>
@@ -65,7 +66,6 @@ class Comment extends Component {
     }
 
 
-    // console.log(this.props.comments)
     if (filteredComments.length > 0) {
       return (
           <div>
