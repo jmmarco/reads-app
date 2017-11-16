@@ -20,6 +20,7 @@ class Main extends Component {
           <Route exact={true} path={`/`} render={() => (
             <div>
 
+              <h2 className="section-heading">Posts List View</h2>
 
               { posts.map((post, i) => {
                 return (
