@@ -21,6 +21,7 @@ class Post extends Component {
       value: '',
       post: null,
       isAddingComment: false,
+      isAddingPost: false,
       commentsLoaded: false
     }
 
@@ -45,6 +46,12 @@ class Post extends Component {
   toggleEdit() {
     this.setState({
       isEditing: !this.state.isEditing,
+    })
+  }
+
+  toggleAddPost() {
+    this.setState({
+      isAddingPost: !this.state.isAddingPost
     })
   }
 
@@ -85,12 +92,11 @@ class Post extends Component {
 
     if (this.state.isEditing && post !== null) {
       return (
-
-          <EditPostForm
-            post={post}
-            handleSubmit={this.handleSubmit.bind(this)}
-            handleChange={this.handleChange.bind(this)}
-          />
+        <EditPostForm
+          post={post}
+          handleSubmit={this.handleSubmit.bind(this)}
+          handleChange={this.handleChange.bind(this)}
+        />
       )
     }
 
@@ -99,7 +105,7 @@ class Post extends Component {
       return (
         <div className="post">
           <div className="post-body">
-            <Link to={`/posts/${post.id}`}> <h2>{post.title}</h2> </Link>
+            <Link to={`/:category/${post.id}`}> <h2>{post.title}</h2> </Link>
             <h3>Posted in category: <Link to={`/categories/${post.category}`}>{post.category}</Link></h3>
             <p>{post.body}</p>
 
