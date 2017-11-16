@@ -73,7 +73,6 @@ export function posts(state = [], action) {
         ...state.filter((post) => post.id !== id ),
       ]
     case REMOVE_POST_SUCCESS:
-      // console.log(...state.filter((post) => post.id !== id))
       return [
         ...state.filter((post) => post.id !== id )
       ]
@@ -95,13 +94,11 @@ export function posts(state = [], action) {
         sorted = state.slice().sort(function(a, b) {
           return a.voteScore - b.voteScore
         })
-        console.log(sorted)
         return sorted
       case SORT_POSTS_BY_SCORE_DSC:
         sorted = state.slice().sort(function(a, b) {
           return b.voteScore - a.voteScore
         })
-        console.log(sorted)
         return sorted
     default:
       return state

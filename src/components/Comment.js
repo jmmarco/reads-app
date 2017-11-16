@@ -101,9 +101,6 @@ class Comment extends Component {
             </ul>
 
             <button className="button-comment" onClick={this.props.toggleAddComment}><FaPlus size={30}/></button>
-
-
-
           </div>
         )
     }
