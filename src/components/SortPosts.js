@@ -37,13 +37,11 @@ import {
      }
 
      if (!order && option === 'score') {
-       console.log('sort by score asc')
        this.setState({ order: true, type: 'asc', option: option })
        this.props.sortPostsByScoreAsc(posts)
      }
 
      if (order && option === 'score') {
-       console.log('sort by score dsc')
        this.setState({ order: false, type: 'dsc', option: option })
        this.props.sortPostsByScoreDsc(posts)
      }
