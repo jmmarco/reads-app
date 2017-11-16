@@ -31,13 +31,13 @@ class Post extends Component {
     this.handleRemove = this.handleRemove.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.post !== nextProps.post && nextProps.post !== undefined) {
-      this.setState({post: nextProps.post})
-      this.props.fetchComments(nextProps.post.id)
-    }
-
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.post !== nextProps.post && nextProps.post !== undefined) {
+  //     this.setState({post: nextProps.post})
+  //     // this.props.fetchComments(nextProps.post.id)
+  //   }
+  //
+  // }
 
   toggleAddComment() {
     this.setState({
@@ -157,7 +157,7 @@ class Post extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log(state, ownProps)
+  console.log(state, ownProps)
   return {
     posts: state.posts,
     comments: state.comments,
