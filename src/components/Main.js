@@ -45,19 +45,21 @@ class Main extends Component {
 
 
           { posts && (
-            <Route path={`/posts/:postId`} render={({ match }) => (
+            <Route path={`/:category/:post_id`} render={({ match }) => (
 
-              <Post post={posts.find(p => p.id === match.params.postId )}/>
+              <Post post={posts.find(p => p.id === match.params.post_id )}/>
 
             )}/>
           )}
 
           { posts && categories && (
-            <Route path={`/:categoryName/posts`} render={({ match }) => (
+            <Route path={`/:category`} render={({ match }) => (
+
               <Category
-                category={categories.find(c => c.name === match.params.categoryName)}
-                posts={posts.filter(p => p.category === match.params.categoryName )}
+                category={categories.find(c => c.name === match.params.category)}
+                posts={posts.filter(p => p.category === match.params.category )}
               />
+
             )}/>
           )}
 
