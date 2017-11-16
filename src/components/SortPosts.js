@@ -13,9 +13,10 @@ import {
    constructor(props) {
      super(props)
      this.state = {
-       order: false
+       order: false,
+       type: '',
+       option: '',
      }
-
 
    }
 
@@ -26,24 +27,24 @@ import {
      const { posts } = this.props
 
      if (!order && option === 'date') {
-       this.setState({ order: true })
+       this.setState({ order: true, type: 'asc', option: option })
        this.props.sortPostsByDateAsc(posts)
      }
 
      if (order && option === 'date') {
-       this.setState({ order: false })
+       this.setState({ order: false, type: 'dsc', option: option })
        this.props.sortPostsByDateDsc(posts)
      }
 
      if (!order && option === 'score') {
        console.log('sort by score asc')
-       this.setState({ order: true })
+       this.setState({ order: true, type: 'asc', option: option })
        this.props.sortPostsByScoreAsc(posts)
      }
 
      if (order && option === 'score') {
        console.log('sort by score dsc')
-       this.setState({ order: false })
+       this.setState({ order: false, type: 'dsc', option: option })
        this.props.sortPostsByScoreDsc(posts)
      }
 
@@ -54,7 +55,13 @@ import {
          <div>
            <button className="button-post" onClick={() => this.toggleSort('score')}>Sort by score</button>
            <button className="button-post" onClick={() => this.toggleSort('date')}>Sort by date</button>
+           {this.state.type === 'asc' && this.state.option === 'date' ? <span>Posts sorted by date in ascending order</span>
+           : this.state.type === 'dsc' && this.state.option === 'date' ? <span>Posts sorted by date in descending order</span>
+           : this.state.type === 'asc' && this.state.option === 'score' ? <span>Posts sorted by score in ascending order</span>
+           : <span>Posts sorted by score in descending order</span> }
+
          </div>
+
        )
      }
  }
