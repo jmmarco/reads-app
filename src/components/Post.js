@@ -31,6 +31,11 @@ class Post extends Component {
     this.handleRemove = this.handleRemove.bind(this)
   }
 
+
+  componentDidMount() {
+    this.setState({post: this.props.post})
+  }
+
   toggleAddComment() {
     this.setState({
       isAddingComment: !this.state.isAddingComment
@@ -56,6 +61,7 @@ class Post extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
+
     this.props.updatePost(this.state.post)
     this.setState({
       isEditing: false
@@ -77,7 +83,7 @@ class Post extends Component {
   render() {
     const { post, comments } = this.props
 
-    if (this.state.isEditing && post !== undefined) {
+    if (this.state.isEditing && post !== null) {
       return (
 
           <EditPostForm
