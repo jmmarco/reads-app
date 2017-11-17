@@ -80,6 +80,7 @@ class Post extends Component {
     // Make call to action here
     this.props.deletePost(this.state.post)
     this.setState({
+      post: null,
       isDeleted: true
     })
   }
