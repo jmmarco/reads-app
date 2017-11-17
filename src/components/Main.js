@@ -17,7 +17,7 @@ class Main extends Component {
 
         <main className="content">
 
-          <Route exact={true} path={`/`} render={() => (
+          <Route exact path={`/`} render={() => (
             <div>
 
               <h2 className="section-heading">Posts List View</h2>
@@ -39,21 +39,23 @@ class Main extends Component {
           )}/>
 
 
-          <Route path={`/posts/new`} component={AddPostForm}/>
+          <Route exact path={`/posts/new`} component={AddPostForm}/>
 
 
 
 
           { posts && (
-            <Route path={`/:category/:post_id`} render={({ match }) => (
+            <Route exact path={`/:category/:post_id`} render={({ match }) => (
 
-              <Post post={posts.find(p => p.id === match.params.post_id )}/>
+              <Post
+                post={posts.find(p => p.id === match.params.post_id )}
+              />
 
             )}/>
           )}
 
           { posts && categories && (
-            <Route path={`/:category`} render={({ match }) => (
+            <Route exact path={`/:category`} render={({ match }) => (
 
               <Category
                 category={categories.find(c => c.name === match.params.category)}

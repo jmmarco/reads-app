@@ -105,8 +105,8 @@ class Post extends Component {
       return (
         <div className="post">
           <div className="post-body">
-            <Link to={`/:category/${post.id}`}> <h2>{post.title}</h2> </Link>
-            <h3>Posted in category: <Link to={`/categories/${post.category}`}>{post.category}</Link></h3>
+            <Link to={`/${post.category}/${post.id}`}> <h2>{post.title}</h2> </Link>
+            <h3>Posted in category: <Link to={`/${post.category}`}>{post.category}</Link></h3>
             <p>{post.body}</p>
 
             <p>Written by: <a href="">{post.author}</a> on: {new Date(post.timestamp).toLocaleString()}</p>
